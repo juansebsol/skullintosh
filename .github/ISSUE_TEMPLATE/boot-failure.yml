@@ -1,0 +1,66 @@
+name: Boot failure
+description: OpenCore or macOS does not boot with a Skullintosh build
+labels: [boot-failure, needs-triage]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Never paste** SMBIOS serials, MLB, SystemUUID, ROM, MAC addresses, BitLocker or product keys.
+        Use `skullintosh report` for sanitized output, and review any OpenCore log before attaching it.
+        If Windows or Linux no longer boots, follow docs/recovery.md first.
+  - type: input
+    id: digest
+    attributes:
+      label: Build tree digest
+      description: The `tree digest …` line printed by `skullintosh build`
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: provenance.json
+      description: Paste the build's provenance.json (contains no personal data)
+      render: json
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where does it stop?
+      options:
+        - Stick not offered in the F10 menu
+        - Before or at the OpenCore picker
+        - After choosing macOS, before the Apple logo / verbose text
+        - During verbose boot (kernel / kext stage)
+        - Installer GUI problem
+        - Installed system fails to boot
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: last-output
+    attributes:
+      label: Last visible output
+      description: Photo or transcription of the last lines (debug flavour boots verbosely)
+    validations:
+      required: true
+  - type: textarea
+    id: oclog
+    attributes:
+      label: OpenCore debug log (reviewed)
+      description: The opencore-*.txt file from the stick's EFI partition, if the debug flavour was used
+  - type: input
+    id: bios
+    attributes:
+      label: BIOS version and changed settings
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: "`skullintosh validate` reports 0 errors for this build"
+          required: true
+        - label: Secure Boot is disabled and DVMT pre-alloc is 64 MB
+        - label: Windows and Linux still boot from the F10 menu without the stick

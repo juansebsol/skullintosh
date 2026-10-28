@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a hardware fix, tool feature or documentation improvement
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What doesn't work or is missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: |
+        For configuration changes: which keys/kexts/patches, and **why they apply to the
+        NUC6i7KYK specifically** (sources, logs, measurements). Patches from other NUC models
+        need evidence that the hardware matches.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety
+      options:
+        - label: This does not relax SIP, AMFI or Secure Boot, or explains why and how that would be opt-in
+        - label: This does not write to disks, EFI partitions or boot entries automatically

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Applied when the fat32_installer feature is true, for the installation session only.
+
+  A macrecovery stick (made on Windows/Linux) is FAT32 on a "Msft Basic Data" partition, which
+  ScanPolicy 769 hides. 2817 = 0xB01 = 769 + OC_SCAN_ALLOW_FS_NTFS ("Msft Basic Data").
+  EFI System Partitions and Linux partitions remain hidden, and no NTFS driver is loaded, so
+  Windows Boot Manager, GRUB and Windows volumes still do not appear in the OpenCore picker.
+-->
+<plist version="1.0">
+<dict>
+	<key>Misc</key>
+	<dict>
+		<key>Security</key>
+		<dict>
+			<key>ScanPolicy</key>
+			<integer>2817</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>

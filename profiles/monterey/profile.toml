@@ -1,0 +1,116 @@
+# macOS 12 Monterey: the Skullintosh baseline.
+#
+# Monterey is the last macOS release with native Skylake (SKL) graphics drivers, so it needs no
+# graphics spoofing and no root patches. Every later profile is measured against this one.
+
+[profile]
+title = "macOS 12 Monterey"
+# research  = documents open questions; build refused without --allow-research
+# candidate = builds and validates; NOT yet verified on hardware
+# verified  = booted and tested on a NUC6i7KYK; see docs/compatibility.md for the evidence
+status = "candidate"
+darwin = 21
+# Dortania: iMac17,1 is the Skylake "NUC Systems" SMBIOS; Monterey supports it natively.
+smbios_model = "iMac17,1"
+overlays = ["../_common/config-overlay.plist", "config-overlay.plist"]
+debug_overlays = ["../_common/config-overlay.debug.plist"]
+usb_map = "../../hardware/usb/nuc6i7kyb.toml"
+# forceRenderStandby=0: WhateverGreen's documented workaround for iGPU RC6 transitions
+# panicking NVMe; upstream hit exactly this (2aa2c14). Re-test without it later (B-031).
+boot_args = ["forceRenderStandby=0"]
+debug_boot_args = ["-v", "keepsyms=1", "debug=0x100", "msgbuf=1048576", "-liludbgall"]
+
+[features]
+bluetooth = true          # Intel 8260 Bluetooth: IntelBluetoothFirmware + IntelBTPatcher + BlueToolFixup
+wifi = "none"             # none | airportitlwm | itlwm (never both)
+nvmefix = false           # NVMe power-management fixes; enable only when measured (B-022)
+# Only while installing from a FAT32 macrecovery stick: lets the picker scan "Msft Basic Data"
+# (FAT32) volumes. EFI System Partitions (Windows Boot Manager, GRUB) stay hidden.
+fat32_installer = false
+
+[feature_overlays]
+fat32_installer = ["../_common/overlay-fat32-installer.plist"]
+
+[feature_choices]
+wifi = ["none", "airportitlwm", "itlwm"]
+
+# ACPI tables come precompiled from the pinned OpenCore release (Docs/AcpiSamples/Binaries).
+[[acpi]]
+name = "SSDT-PLUG.aml"
+comment = "X86PlatformPlugin for XCPM (needed before macOS 12.3, harmless after)"
+
+[[acpi]]
+name = "SSDT-EC-USBX.aml"
+comment = "Fake EC at \\_SB.PCI0.LPCB.EC + USBX power properties (Darwin only)"
+
+# Kernel/Add order. The validator checks that every kext loads after its dependencies.
+[[kexts]]
+name = "Lilu"
+
+[[kexts]]
+name = "VirtualSMC"
+
+[[kexts]]
+name = "SMCProcessor"
+
+[[kexts]]
+name = "WhateverGreen"
+
+[[kexts]]
+name = "AppleALC"
+
+[[kexts]]
+name = "IntelMausi"
+comment = "Intel I219-LM Ethernet"
+
+[[kexts]]
+name = "USBMap"
+
+[[kexts]]
+name = "NVMeFix"
+when = "nvmefix"
+
+[[kexts]]
+name = "IntelBluetoothFirmware"
+when = "bluetooth"
+
+[[kexts]]
+name = "IntelBTPatcher"
+when = "bluetooth"
+
+[[kexts]]
+name = "BlueToolFixup"
+when = "bluetooth"
+
+[[kexts]]
+name = "AirportItlwm-Monterey"
+when = "wifi=airportitlwm"
+
+[[kexts]]
+name = "itlwm"
+when = "wifi=itlwm"
+comment = "needs the HeliPort app"
+
+[[drivers]]
+name = "OpenHfsPlus.efi"
+comment = "Open-source HFS+ driver (for macOS installer media)"
+
+[[drivers]]
+name = "OpenRuntime.efi"
+
+[[drivers]]
+name = "ResetNvramEntry.efi"
+comment = "Reset NVRAM picker entry"
+# --preserve-boot: without it, OpenCore's NVRAM reset also deletes the firmware boot entries for
+# Windows Boot Manager and GRUB (OpenCore Configuration.pdf, ResetNvramEntry).
+arguments = "--preserve-boot"
+
+[[tools]]
+name = "OpenShell.efi"
+flavors = ["debug"]
+comment = "UEFI shell for diagnostics"
+
+[[tools]]
+name = "ControlMsrE2.efi"
+flavors = ["debug"]
+comment = "Reports CFG Lock (MSR 0xE2) state; run without arguments to only read"

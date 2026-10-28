@@ -1,0 +1,72 @@
+# USB port map for the Intel NUC6i7KYB board (NUC6i7KYK, Skull Canyon).
+#
+# STATUS: PROVISIONAL / UNVERIFIED.
+# The port list below reproduces the archived upstream SSDT-UIAC.dsl (alexpotter1, 2020), which
+# was built for this exact model. Which physical socket each HSxx/SSxx pair belongs to was never
+# recorded, and the Bluetooth assignment (HS09, internal) has not been confirmed on this project's
+# hardware. Replace this file with a USBToolBox capture (docs/usb-mapping.md, backlog B-010) and
+# set `verified = true` only after the physical tests in docs/hardware-testing.md pass.
+#
+# Connector types: 0 = USB2 Type-A, 3 = USB3 Type-A, 9/10 = Type-C, 255 = internal.
+
+source = "upstream SSDT-UIAC.dsl @ alexpotter1/intel-nuc6i7kyk-opencore 2ccbf26"
+verified = false
+
+[controller]
+name = "XHC"
+# Intel 100 Series / HM170 (Sunrise Point-H) xHCI controller.
+pci_id = "8086:a12f"
+
+[[ports]]
+name = "HS01"
+port = 1
+connector = 3
+physical = "unknown (USB 2 lines of a USB 3 Type-A socket)"
+
+[[ports]]
+name = "HS02"
+port = 2
+connector = 3
+physical = "unknown (USB 2 lines of a USB 3 Type-A socket)"
+
+[[ports]]
+name = "HS03"
+port = 3
+connector = 3
+physical = "unknown (USB 2 lines of a USB 3 Type-A socket)"
+
+[[ports]]
+name = "HS04"
+port = 4
+connector = 3
+physical = "unknown (USB 2 lines of a USB 3 Type-A socket)"
+
+[[ports]]
+name = "HS09"
+port = 9
+connector = 255
+physical = "internal; presumed Intel 8260 Bluetooth (unconfirmed)"
+
+[[ports]]
+name = "SS01"
+port = 17
+connector = 3
+physical = "unknown (USB 3 lines)"
+
+[[ports]]
+name = "SS02"
+port = 18
+connector = 3
+physical = "unknown (USB 3 lines)"
+
+[[ports]]
+name = "SS03"
+port = 19
+connector = 3
+physical = "unknown (USB 3 lines)"
+
+[[ports]]
+name = "SS04"
+port = 20
+connector = 3
+physical = "unknown (USB 3 lines)"

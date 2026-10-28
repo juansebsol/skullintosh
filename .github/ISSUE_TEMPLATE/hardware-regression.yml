@@ -1,0 +1,49 @@
+name: Hardware regression
+description: Something that worked with an earlier build or macOS version no longer works
+labels: [regression, needs-triage]
+body:
+  - type: dropdown
+    id: subsystem
+    attributes:
+      label: Subsystem
+      options:
+        - Graphics / displays
+        - Audio
+        - Ethernet
+        - Wi-Fi
+        - Bluetooth
+        - USB
+        - Sleep / wake
+        - Thunderbolt
+        - Power management
+        - Storage / NVMe
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: good
+    attributes:
+      label: Last good build
+      description: Tree digest and provenance.json of the build where it worked, plus macOS version
+    validations:
+      required: true
+  - type: textarea
+    id: bad
+    attributes:
+      label: First bad build
+      description: Tree digest and provenance.json, plus macOS version
+    validations:
+      required: true
+  - type: textarea
+    id: diff
+    attributes:
+      label: config.plist diff
+      description: "`diff` of the two generated config.plist files (check it for personal values first)"
+      render: diff
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Which test ID from docs/hardware-testing.md fails, and how
+    validations:
+      required: true

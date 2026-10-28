@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Skullintosh common overlay: settings shared by every NUC6i7KYK profile.
+
+  Applied on top of the pinned OpenCore release's own Docs/Sample.plist. Only keys listed here
+  differ from OpenCore's defaults. Every key must exist in that OpenCore version's schema or
+  the build fails. Keys beginning with "#" document intent and are stripped from the output.
+  Rationale for each decision: docs/upstream-audit.md.
+-->
+<plist version="1.0">
+<dict>
+	<key>Booter</key>
+	<dict>
+		<key>Quirks</key>
+		<dict>
+			<key>#Note</key>
+			<string>Dortania Skylake defaults. SyncRuntimePermissions/RebuildAppleMemoryMap stay false until a DEBUG log shows MAT support (backlog B-005).</string>
+			<key>AvoidRuntimeDefrag</key>
+			<true/>
+			<key>EnableSafeModeSlide</key>
+			<true/>
+			<key>EnableWriteUnprotector</key>
+			<true/>
+			<key>ProvideCustomSlide</key>
+			<true/>
+			<key>RebuildAppleMemoryMap</key>
+			<false/>
+			<key>SetupVirtualMap</key>
+			<true/>
+			<key>SyncRuntimePermissions</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>Kernel</key>
+	<dict>
+		<key>Quirks</key>
+		<dict>
+			<key>#AppleXcpmCfgLock</key>
+			<string>Kept until ControlMsrE2 (debug builds) shows MSR 0xE2 unlocked (B-006).</string>
+			<key>AppleXcpmCfgLock</key>
+			<true/>
+			<key>#DisableIoMapper</key>
+			<string>Lets VT-d stay enabled in the BIOS for Windows/Linux.</string>
+			<key>DisableIoMapper</key>
+			<true/>
+			<key>PanicNoKextDump</key>
+			<true/>
+			<key>PowerTimeoutKernelPanic</key>
+			<true/>
+			<key>XhciPortLimit</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>Misc</key>
+	<dict>
+		<key>Boot</key>
+		<dict>
+			<key>#LauncherOption</key>
+			<string>Disabled: OpenCore never adds itself to the firmware boot order (protects Windows Boot Manager / GRUB).</string>
+			<key>LauncherOption</key>
+			<string>Disabled</string>
+			<key>HideAuxiliary</key>
+			<true/>
+			<key>PickerMode</key>
+			<string>Builtin</string>
+			<key>ShowPicker</key>
+			<true/>
+			<key>Timeout</key>
+			<integer>5</integer>
+		</dict>
+		<key>Security</key>
+		<dict>
+			<key>AllowSetDefault</key>
+			<false/>
+			<key>#ScanPolicy</key>
+			<string>769 = 0x301: filesystem lock, APFS + HFS+ only. Windows and Linux are hidden from the OpenCore picker so they are never booted with macOS ACPI/SMBIOS changes; use the firmware boot menu (F10) for them.</string>
+			<key>ScanPolicy</key>
+			<integer>769</integer>
+			<key>SecureBootModel</key>
+			<string>Default</string>
+			<key>Vault</key>
+			<string>Optional</string>
+		</dict>
+	</dict>
+	<key>NVRAM</key>
+	<dict>
+		<key>Add</key>
+		<dict>
+			<key>4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14</key>
+			<dict>
+				<key>DefaultBackgroundColor</key>
+				<data>AAAAAA==</data>
+			</dict>
+			<key>4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102</key>
+			<dict>
+				<key>rtc-blacklist</key>
+				<data></data>
+			</dict>
+			<key>7C436110-AB2A-4BBB-A880-FE41995C9F82</key>
+			<dict>
+				<key>#csr-active-config</key>
+				<string>00000000 = System Integrity Protection fully enabled. The validator rejects any other value.</string>
+				<key>csr-active-config</key>
+				<data>AAAAAA==</data>
+				<key>prev-lang:kbd</key>
+				<string>en-US:0</string>
+				<key>run-efi-updater</key>
+				<string>No</string>
+				<key>SystemAudioVolume</key>
+				<data>Rg==</data>
+			</dict>
+		</dict>
+		<key>WriteFlash</key>
+		<true/>
+	</dict>
+	<key>PlatformInfo</key>
+	<dict>
+		<key>Automatic</key>
+		<true/>
+		<key>UpdateDataHub</key>
+		<true/>
+		<key>UpdateNVRAM</key>
+		<true/>
+		<key>UpdateSMBIOS</key>
+		<true/>
+		<key>UpdateSMBIOSMode</key>
+		<string>Create</string>
+	</dict>
+	<key>UEFI</key>
+	<dict>
+		<key>Audio</key>
+		<dict>
+			<key>AudioDevice</key>
+			<string>PciRoot(0x0)/Pci(0x1f,0x3)</string>
+		</dict>
+		<key>Quirks</key>
+		<dict>
+			<key>#RequestBootVarRouting</key>
+			<string>Keeps macOS from rewriting the firmware BootOrder/BootNext.</string>
+			<key>RequestBootVarRouting</key>
+			<true/>
+			<key>ReleaseUsbOwnership</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
+</plist>

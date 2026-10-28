@@ -1,0 +1,74 @@
+name: Compatibility test report
+description: Results of the hardware tests in docs/hardware-testing.md on a real NUC6i7KYK
+labels: [test-report]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        These reports are how profiles become **verified**. Report failures as well as passes.
+        Never paste serials, MAC addresses or keys.
+  - type: input
+    id: digest
+    attributes:
+      label: Build tree digest
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: provenance.json
+      render: json
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and build (sw_vers)
+    validations:
+      required: true
+  - type: input
+    id: bios
+    attributes:
+      label: BIOS version and changed settings
+    validations:
+      required: true
+  - type: textarea
+    id: results
+    attributes:
+      label: Test results
+      description: One line per test ID, e.g. `T-GFX-1 PASS - 1536 MB, Metal supported`
+      value: |
+        T-BOOT-1:
+        T-BOOT-2:
+        T-BOOT-3:
+        T-BOOT-4:
+        T-GFX-1:
+        T-GFX-2:
+        T-GFX-3:
+        T-GFX-4:
+        T-NET-1:
+        T-USB-1:
+        T-AUD-1:
+        T-SEC-1:
+        T-DUAL-1:
+        T-DUAL-2:
+        T-DUAL-3:
+    validations:
+      required: true
+  - type: textarea
+    id: extended
+    attributes:
+      label: Extended tests (optional)
+      description: Any of T-GFX-5…9, T-AUD-2…5, T-WIFI, T-BT, T-PWR, T-TB, T-SD, T-NVME, T-FV
+  - type: textarea
+    id: report
+    attributes:
+      label: Sanitized hardware report
+      description: Output of `skullintosh report --input <inventory dir>` (reviewed)
+  - type: checkboxes
+    id: dual
+    attributes:
+      label: Other operating systems
+      options:
+        - label: Windows and Linux still boot from the F10 menu after this session
+          required: true

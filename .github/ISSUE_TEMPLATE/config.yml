@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security issue
+    url: https://github.com/juansebsol/skullintosh/security/advisories/new
+    about: Report vulnerabilities privately (see SECURITY.md)
+  - name: General OpenCore questions
+    url: https://dortania.github.io/OpenCore-Install-Guide/
+    about: Dortania's guides cover OpenCore concepts that aren't Skull Canyon-specific

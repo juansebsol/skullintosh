@@ -1,0 +1,22 @@
+# External documentation links are checked weekly rather than on every PR, so flaky third-party
+# sites don't block contributions. Relative links are checked on every PR by tests/test_docs.py.
+
+name: Link check
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lychee:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --max-retries 3 --accept 200,206,429 './**/*.md'
+          fail: true

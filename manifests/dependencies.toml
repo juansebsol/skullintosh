@@ -1,0 +1,193 @@
+# Skullintosh dependency manifest.
+#
+# Every binary in a Skullintosh EFI comes from one of the release assets below. Assets are
+# downloaded from https://github.com/<repo>/releases/download/<tag>/<name> and must match the
+# pinned SHA-256 exactly; anything else aborts the build.
+#
+# To update a dependency: change `tag`/`version`/asset names, clear the sha256, run
+# `skullintosh pin <package>` (it downloads, hashes, and cross-checks GitHub's published digest
+# where one exists), review the diff, and record the change in CHANGELOG.md.
+
+schema = 1
+
+# Release assets may only come from these GitHub owners.
+approved_owners = ["acidanthera", "OpenIntelWireless"]
+
+# --------------------------------------------------------------------------------------------
+# Packages (one GitHub release each)
+# --------------------------------------------------------------------------------------------
+
+[packages.opencore]
+repo = "acidanthera/OpenCorePkg"
+tag = "1.0.8"
+license = "BSD-3-Clause"
+assets.release = { name = "OpenCore-1.0.8-RELEASE.zip", sha256 = "2011e8b7216ecb2645d97ea710df965947edd406846e92050b9bc4190be6d27b" }
+assets.debug = { name = "OpenCore-1.0.8-DEBUG.zip", sha256 = "3f5f42b85703cf2c08e8dcd9245a52fb4326c9f4ef335c75b49f516cbbe131c6" }
+
+[packages.lilu]
+repo = "acidanthera/Lilu"
+tag = "1.7.2"
+license = "BSD-3-Clause"
+assets.release = { name = "Lilu-1.7.2-RELEASE.zip", sha256 = "53967d7dcfaab01023a33df2e969a89522f13d6654a6a56ac4711b62dabf3ab8" }
+assets.debug = { name = "Lilu-1.7.2-DEBUG.zip", sha256 = "e95df95d82e8b151047abf359ecd9c853755c59293e19dfcc3907da8fbd8cf89" }
+
+[packages.whatevergreen]
+repo = "acidanthera/WhateverGreen"
+tag = "1.7.1"
+license = "BSD-3-Clause"
+assets.release = { name = "WhateverGreen-1.7.1-RELEASE.zip", sha256 = "1bfdd2d40290ecce237606db121cbc01d7041179f03394bd59660a2ed52e5c95" }
+assets.debug = { name = "WhateverGreen-1.7.1-DEBUG.zip", sha256 = "f6f4ff75239fd9dcc40bb432eaf1342f9ebf509a9581f54ba536af4f17f11680" }
+
+[packages.applealc]
+repo = "acidanthera/AppleALC"
+tag = "1.9.8"
+license = "BSD-3-Clause"
+assets.release = { name = "AppleALC-1.9.8-RELEASE.zip", sha256 = "d4d36cd2da7863cf7cbfcb0892d45c08457f4f4ddd065a073dd010e46bd63bcb" }
+assets.debug = { name = "AppleALC-1.9.8-DEBUG.zip", sha256 = "12b5b2bd3d2dc97e018ddd48032f468d92e65472409f255f13795ba1b7b93d95" }
+
+[packages.virtualsmc]
+repo = "acidanthera/VirtualSMC"
+tag = "1.3.8"
+license = "BSD-3-Clause"
+assets.release = { name = "VirtualSMC-1.3.8-RELEASE.zip", sha256 = "2e29a8aaf91b4eb0bcdf5913ed17e70f5cf76531122acd4132eff7813a54de8b" }
+assets.debug = { name = "VirtualSMC-1.3.8-DEBUG.zip", sha256 = "d1a13a4ad5564f97d4fa4cb584eaa63cb4fbe280c6997100133789dd4bdac200" }
+
+[packages.intelmausi]
+repo = "acidanthera/IntelMausi"
+tag = "1.0.8"
+license = "GPL-2.0"
+assets.release = { name = "IntelMausi-1.0.8-RELEASE.zip", sha256 = "cc02ea7e972ead536a51e5f6725e79f121026dbf36a766e97044ef2483fd29bc" }
+assets.debug = { name = "IntelMausi-1.0.8-DEBUG.zip", sha256 = "38156e20c61b3d207c951cf00403265bb563f57f4d08d5ca73321bd1f3d6a7e8" }
+
+[packages.nvmefix]
+repo = "acidanthera/NVMeFix"
+tag = "1.1.3"
+# BSD-3-Clause for NVMeFix itself; bundles Linux kernel code under GPL-2.0 (see its LICENSE.txt).
+license = "BSD-3-Clause AND GPL-2.0-only"
+assets.release = { name = "NVMeFix-1.1.3-RELEASE.zip", sha256 = "e1d5657ab7ac31f69771708f7b80bf218ab9aa0b8e4c4fe6ff943983037e3dfb" }
+assets.debug = { name = "NVMeFix-1.1.3-DEBUG.zip", sha256 = "14bddc4d7336f5a781dd3201afd174ebe117b584e62f98e6f2acad50c8b5ffda" }
+
+[packages.brcmpatchram]
+repo = "acidanthera/BrcmPatchRAM"
+tag = "2.7.2"
+license = "GPL-2.0"
+assets.release = { name = "BrcmPatchRAM-2.7.2-RELEASE.zip", sha256 = "e1c1c55347526d031a8ae2fdd1f52efa3019161e497fb38e1cfa809752f8af21" }
+assets.debug = { name = "BrcmPatchRAM-2.7.2-DEBUG.zip", sha256 = "268d1a9f32ca80db398b6d415242b01d8f70a5ccc861c6f86069c450abca5ac4" }
+
+[packages.intelbluetooth]
+repo = "OpenIntelWireless/IntelBluetoothFirmware"
+tag = "v2.4.0"
+license = "GPL-3.0"
+assets.any = { name = "IntelBluetooth-v2.4.0.zip", sha256 = "78418daa11f620012fc53ba68cbd643c2642a45f2f96c594fd01aaf2bc68fe2b" }
+
+[packages.itlwm]
+repo = "OpenIntelWireless/itlwm"
+tag = "v2.3.0"
+license = "GPL-2.0"
+assets.itlwm = { name = "itlwm_v2.3.0_stable.kext.zip", sha256 = "31ed2e5b4bca92645bfab0a397a1f50212c72a04ea15591c061fe74233e4f82b" }
+assets.airportitlwm-monterey = { name = "AirportItlwm_v2.3.0_stable_Monterey.kext.zip", sha256 = "da4a7468bb92fbe873513e0cd0d037d367f65051339d73b726d4c40b6167f923" }
+assets.airportitlwm-ventura = { name = "AirportItlwm_v2.3.0_stable_Ventura.kext.zip", sha256 = "7ea19307ef9ae08991d911e6f1de59e682444e21dbcd6342b5e0a037f19c860e" }
+assets.airportitlwm-sonoma140 = { name = "AirportItlwm_v2.3.0_stable_Sonoma14.0.kext.zip", sha256 = "d795fc5844e9126f4327c4be5ceae9297ebf8a0977377a28c4a24346643609bb" }
+assets.airportitlwm-sonoma144 = { name = "AirportItlwm_v2.3.0_stable_Sonoma14.4.kext.zip", sha256 = "7ef12a8037eb9bc795828c348f4fa0728b8ade57aa0984b037816ef91c2d5119" }
+
+# --------------------------------------------------------------------------------------------
+# Kexts: where each bundle lives inside its package, and which macOS releases it applies to.
+#
+#   asset       asset key to use; defaults to the build flavour ("release"/"debug")
+#   darwin_min  first darwin major the kext is built for (21 = macOS 12 Monterey)
+#   darwin_max  last darwin major the kext is built for
+#   min_kernel  explicit MinKernel override (for point-release splits)
+#   max_kernel  explicit MaxKernel override
+#   group       mutually exclusive group: at most one enabled kext per group per kernel range
+# --------------------------------------------------------------------------------------------
+
+[kexts.Lilu]
+package = "lilu"
+path = "Lilu.kext"
+
+[kexts.VirtualSMC]
+package = "virtualsmc"
+path = "Kexts/VirtualSMC.kext"
+
+[kexts.SMCProcessor]
+package = "virtualsmc"
+path = "Kexts/SMCProcessor.kext"
+
+[kexts.WhateverGreen]
+package = "whatevergreen"
+path = "WhateverGreen.kext"
+
+[kexts.AppleALC]
+package = "applealc"
+path = "AppleALC.kext"
+
+[kexts.IntelMausi]
+package = "intelmausi"
+path = "IntelMausi.kext"
+
+[kexts.NVMeFix]
+package = "nvmefix"
+path = "NVMeFix.kext"
+
+[kexts.IntelBluetoothFirmware]
+package = "intelbluetooth"
+asset = "any"
+path = "IntelBluetoothFirmware.kext"
+
+[kexts.IntelBTPatcher]
+package = "intelbluetooth"
+asset = "any"
+path = "IntelBTPatcher.kext"
+
+# Must NOT be used on macOS 12+ (BlueToolFixup replaces it); listed so the validator can
+# recognise and reject it.
+[kexts.IntelBluetoothInjector]
+package = "intelbluetooth"
+asset = "any"
+path = "IntelBluetoothInjector.kext"
+darwin_max = 20
+
+[kexts.BlueToolFixup]
+package = "brcmpatchram"
+path = "BlueToolFixup.kext"
+darwin_min = 21
+
+[kexts.itlwm]
+package = "itlwm"
+asset = "itlwm"
+path = "itlwm.kext"
+group = "wifi"
+
+[kexts.AirportItlwm-Monterey]
+package = "itlwm"
+asset = "airportitlwm-monterey"
+path = "AirportItlwm.kext"
+darwin_min = 21
+darwin_max = 21
+group = "wifi"
+
+[kexts.AirportItlwm-Ventura]
+package = "itlwm"
+asset = "airportitlwm-ventura"
+path = "AirportItlwm.kext"
+darwin_min = 22
+darwin_max = 22
+group = "wifi"
+
+[kexts.AirportItlwm-Sonoma140]
+package = "itlwm"
+asset = "airportitlwm-sonoma140"
+path = "AirportItlwm.kext"
+darwin_min = 23
+darwin_max = 23
+max_kernel = "23.3.99"
+group = "wifi"
+
+[kexts.AirportItlwm-Sonoma144]
+package = "itlwm"
+asset = "airportitlwm-sonoma144"
+path = "AirportItlwm.kext"
+darwin_min = 23
+darwin_max = 23
+min_kernel = "23.4.0"
+group = "wifi"

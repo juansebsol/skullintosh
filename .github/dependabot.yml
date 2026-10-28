@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # Keeps workflow actions current. Firmware dependencies (OpenCore, kexts) are NOT updated by
+  # bots: they are pinned by hand in manifests/dependencies.toml and need hardware re-testing.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

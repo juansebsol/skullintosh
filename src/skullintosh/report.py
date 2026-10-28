@@ -1,0 +1,188 @@
+"""Sanitized diagnostic reports.
+
+``environment_report`` describes the local Skullintosh setup (versions, cache, builds) with no
+personal paths. ``inventory_report`` takes raw output from scripts/inventory/*, masks
+machine-specific identifiers, and reconciles device IDs with hardware/reference/nuc6i7kyk.toml.
+Nothing is uploaded anywhere; the output is a local file for the user to review.
+"""
+
+from __future__ import annotations
+
+import json
+import platform
+import re
+import sys
+import tomllib
+from pathlib import Path
+
+from skullintosh import __version__
+from skullintosh.fetch import cache_dir, cached_path
+from skullintosh.manifest import load_manifest
+from skullintosh.profiles import list_profiles, load_profile
+from skullintosh.util import relpath_for_display, sha256_file
+
+_KNOWN_GUIDS = {
+    # GPT partition types and Apple/OpenCore NVRAM GUIDs are public constants, not identifiers.
+    "C12A7328-F81F-11D2-BA4B-00A0C93EC93B",
+    "EBD0A0A2-B9E5-4433-87C0-68B6B72699C7",
+    "E3C9E316-0B5C-4DB8-817D-F92DF00215AE",
+    "DE94BBA4-06D1-4D40-A16A-BFD50179D6AC",
+    "0FC63DAF-8483-4772-8E79-3D69D8477DE4",
+    "0657FD6D-A4AB-43C4-84E5-0933C84B4F4F",
+    "7C3457EF-0000-11AA-AA11-00306543ECAC",
+    "48465300-0000-11AA-AA11-00306543ECAC",
+    "7C436110-AB2A-4BBB-A880-FE41995C9F82",
+    "4D1EDE05-38C7-4A6A-9CC6-4BCCA8B38C14",
+    "4D1FDA02-38C7-4A6A-9CC6-4BCCA8B30102",
+    "8BE4DF61-93CA-11D2-AA0D-00E098032B8C",
+    "00000000-0000-0000-0000-000000000000",
+}
+_UUID = re.compile(
+    r"\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-"
+    r"[0-9A-Fa-f]{12}\b"
+)
+_MAC = re.compile(
+    r"(?<![0-9A-Fa-f:-])(?:[0-9A-Fa-f]{2}([:-]))(?:[0-9A-Fa-f]{2}\1){4}"
+    r"[0-9A-Fa-f]{2}(?![0-9A-Fa-f:-])"
+)
+_SERIAL_LINE = re.compile(
+    r"(?im)^(\s*[\w .()-]*?(?:serial(?:\s*number)?|serialnumber|identifyingnumber|"
+    r"uuid|asset tag|sku number)\s*[:=]\s*)(\S.*)$"
+)
+_USB_INSTANCE = re.compile(r"(?i)\b(USB(?:STOR)?\\[^\\\s]+\\)([^\\\s&]+)")
+_PRODUCT_KEY = re.compile(r"\b[A-Z0-9]{5}(?:-[A-Z0-9]{5}){4}\b")
+_IPV4 = re.compile(r"\b(?!127\.0\.0\.1\b)(?:\d{1,3}\.){3}\d{1,3}\b")
+_HOME = re.compile(r"(/home/|/Users/|C:\\Users\\)([^/\\\s]+)", re.IGNORECASE)
+_PCI_PAIR = re.compile(r"\b([0-9a-f]{4}):([0-9a-f]{4})\b", re.IGNORECASE)
+_WIN_PCI = re.compile(r"VEN_([0-9A-F]{4})&DEV_([0-9A-F]{4})", re.IGNORECASE)
+_WIN_USB = re.compile(r"VID_([0-9A-F]{4})&PID_([0-9A-F]{4})", re.IGNORECASE)
+_HDA = re.compile(
+    r"(?:Vendor Id:\s*0x|HDAUDIO\\FUNC_01&VEN_)([0-9a-f]{4})(?:&DEV_)?"
+    r"([0-9a-f]{4})",
+    re.IGNORECASE,
+)
+
+
+def sanitize(text: str) -> str:
+    text = _SERIAL_LINE.sub(lambda m: m.group(1) + "<redacted>", text)
+    text = _MAC.sub("XX:XX:XX:XX:XX:XX", text)
+    text = _UUID.sub(
+        lambda m: (
+            m.group(0)
+            if m.group(0).upper() in _KNOWN_GUIDS
+            else "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+        ),
+        text,
+    )
+    text = _USB_INSTANCE.sub(lambda m: m.group(1) + "<instance>", text)
+    text = _PRODUCT_KEY.sub("<product-key>", text)
+    text = _IPV4.sub("<ip>", text)
+    text = _HOME.sub(lambda m: m.group(1) + "<user>", text)
+    return text
+
+
+def _found_ids(text: str) -> set[str]:
+    ids = {f"{a}:{b}".lower() for a, b in _PCI_PAIR.findall(text)}
+    ids |= {f"{a}:{b}".lower() for a, b in _WIN_PCI.findall(text)}
+    ids |= {f"{a}:{b}".lower() for a, b in _WIN_USB.findall(text)}
+    ids |= {f"{a}:{b}".lower() for a, b in _HDA.findall(text)}
+    return ids
+
+
+def reconcile(text: str, reference: dict) -> list[tuple[str, str, str, str]]:
+    """Rows of (device, expected id, status, needed for)."""
+    found = _found_ids(text)
+    rows = []
+    for dev in reference.get("device", []):
+        expected = dev.get("pci") or dev.get("usb") or dev.get("hda")
+        candidates = [expected, *dev.get("alternatives", [])]
+        hit = next((c for c in candidates if c.lower() in found), None)
+        status = f"found ({hit})" if hit else "NOT FOUND"
+        rows.append((dev["name"], " / ".join(candidates), status, dev.get("needed_for", "")))
+    for dev in reference.get("unknown", []):
+        rows.append((dev["name"], "unknown", "record manually", dev.get("note", "")))
+    return rows
+
+
+def inventory_report(root: Path, inputs: list[Path]) -> str:
+    chunks = []
+    for path in inputs:
+        files = sorted(p for p in path.rglob("*") if p.is_file()) if path.is_dir() else [path]
+        for f in files:
+            if f.suffix.lower() in (".aml", ".dat", ".bin") or f.name.upper().startswith(
+                ("MSDM", "SLIC")
+            ):
+                continue  # binary ACPI tables are not included in text reports
+            raw = f.read_text(encoding="utf-8", errors="replace")
+            chunks.append((f.name, sanitize(raw)))
+    combined = "\n".join(c for _, c in chunks)
+    reference = tomllib.loads((root / "hardware/reference/nuc6i7kyk.toml").read_text())
+    lines = [
+        "# Skullintosh hardware inventory report (sanitized)",
+        "",
+        f"Generated by skullintosh {__version__}. Review before sharing: automated "
+        "masking can miss identifiers.",
+        "",
+        "## Reconciliation with expected hardware",
+        "",
+        "| Device | Expected ID | Status | Needed for |",
+        "| --- | --- | --- | --- |",
+    ]
+    for name, expected, status, need in reconcile(combined, reference):
+        lines.append(f"| {name} | `{expected}` | {status} | {need} |")
+    lines += ["", "## Sanitized inventory", ""]
+    for name, content in chunks:
+        lines += [f"### {name}", "", "```text", content.strip(), "```", ""]
+    return "\n".join(lines)
+
+
+def environment_report(root: Path) -> str:
+    manifest = load_manifest(root / "manifests" / "dependencies.toml")
+    cache = cache_dir(root)
+    lines = [
+        "# Skullintosh environment report",
+        "",
+        f"* skullintosh: {__version__}",
+        f"* python: {sys.version.split()[0]} ({platform.python_implementation()})",
+        f"* host: {platform.system()} {platform.release()} {platform.machine()}",
+        f"* cache: {relpath_for_display(cache)}",
+        "",
+        "## Profiles",
+        "",
+    ]
+    for name in list_profiles(root):
+        p = load_profile(root, name)
+        lines.append(
+            f"* `{name}`: {p.title}, darwin {p.darwin}, SMBIOS {p.smbios_model or '-'}"
+            f", status **{p.status}**"
+        )
+    lines += [
+        "",
+        "## Pinned dependencies",
+        "",
+        "| Package | Tag | Asset | Cached |",
+        "| --- | --- | --- | --- |",
+    ]
+    for pkg in manifest.packages.values():
+        for asset in pkg.assets.values():
+            path = cached_path(cache, asset)
+            state = (
+                "verified"
+                if path.is_file() and sha256_file(path) == asset.sha256
+                else "MISMATCH"
+                if path.is_file()
+                else "no"
+            )
+            lines.append(f"| {pkg.repo} | {pkg.tag} | {asset.name} | {state} |")
+    lines += ["", "## Builds", ""]
+    builds = sorted((root / "build").glob("*/provenance.json")) if (root / "build").is_dir() else []
+    for prov_path in builds:
+        prov = json.loads(prov_path.read_text())
+        lines.append(
+            f"* `{prov_path.parent.name}`: {prov['profile']} {prov['flavor']}, "
+            f"OpenCore {prov['opencore']['tag']}, features {prov['features']}, "
+            f"personalized={prov['personalized']}"
+        )
+    if not builds:
+        lines.append("* none")
+    return "\n".join(lines) + "\n"

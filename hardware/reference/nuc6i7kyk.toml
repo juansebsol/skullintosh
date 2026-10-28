@@ -1,0 +1,71 @@
+# Expected hardware identifiers for the Intel NUC6i7KYK (board NUC6i7KYB).
+#
+# These come from Intel's product specification, the archived upstream config, and the PCI ID
+# database. They are EXPECTATIONS, not observations: `skullintosh report --input` compares a
+# sanitized inventory against them, and docs/hardware-inventory.md records what the project's
+# own machine actually reports.
+#
+# `pci` / `usb` / `hda` entries are matched case-insensitively against the inventory text.
+# `alternatives` lists acceptable alternative IDs where sources disagree.
+
+[[device]]
+name = "Iris Pro Graphics 580 (GT4e)"
+pci = "8086:193b"
+needed_for = "graphics acceleration; framebuffer 0x193B0005"
+
+[[device]]
+name = "Skylake-H host bridge / DRAM registers"
+pci = "8086:1910"
+needed_for = "reference only"
+
+[[device]]
+name = "100 Series / HM170 xHCI controller"
+pci = "8086:a12f"
+needed_for = "USB map (hardware/usb/nuc6i7kyb.toml)"
+
+[[device]]
+name = "100 Series HD Audio controller"
+pci = "8086:a170"
+needed_for = "AppleALC"
+
+[[device]]
+name = "HM170 LPC/eSPI controller"
+pci = "8086:a14e"
+needed_for = "reference only (EC SSDT path \\_SB.PCI0.LPCB)"
+
+[[device]]
+name = "Intel I219-LM Ethernet"
+pci = "8086:156f"
+alternatives = ["8086:15b7"]
+needed_for = "IntelMausi"
+
+[[device]]
+name = "Intel Dual Band Wireless-AC 8260"
+pci = "8086:24f3"
+needed_for = "itlwm / AirportItlwm"
+
+[[device]]
+name = "Intel 8260 Bluetooth (USB)"
+usb = "8087:0a2b"
+needed_for = "IntelBluetoothFirmware"
+
+[[device]]
+name = "Realtek ALC233 codec"
+hda = "10ec:0233"
+needed_for = "AppleALC layout-id (upstream used 32)"
+
+[[unknown]]
+name = "Thunderbolt 3 controller (Alpine Ridge)"
+note = "Record bridge, NHI and xHCI IDs from lspci -nn; needed for B-070."
+
+[[unknown]]
+name = "SDXC card reader"
+note = "Upstream says PCIe; vendor/device ID never recorded. Needed for B-080."
+
+[[unknown]]
+name = "Super I/O / embedded controller"
+note = "Needed to decide on SMCSuperIO (B-021)."
+
+[[unknown]]
+name = "M.2 NVMe drives"
+note = "Record model and controller only - never serial numbers."

@@ -1,0 +1,99 @@
+# macOS 26 Tahoe: EXPERIMENTAL RESEARCH. Must not delay Monterey or Ventura.
+#
+# Tahoe is the last macOS release for Intel Macs. macOS 27 is out of scope.
+#
+# Documented changes (Dortania extras/tahoe.md):
+#  * Supported Intel SMBIOS: MacBookPro16,1/16,2/16,4, MacPro7,1, iMac20,1/20,2. iMac20,1
+#    (Comet Lake desktop) is the starting point.
+#  * AppleHDA.kext was removed: AppleALC no longer gives analog audio (speaker/headphone jack).
+#    The documented workaround (VoodooHDA) needs csr-active-config 03000000, which relaxes SIP.
+#    HDMI/DP audio is unaffected. AppleALC is left out of this profile.
+#  * Intel Bluetooth needs the -ibtcompatbeta boot argument.
+#
+# Unknowns (B-043): whether any spoof gives Iris Pro 580 acceleration without OpenCore Legacy
+# Patcher root patches, and whether itlwm v2.3.0 (2024) works at all. Any configuration that
+# relaxes SIP, AMFI or Apple Secure Boot is rejected by the validator; it needs an explicit,
+# documented decision first (docs/compatibility.md, "Security-reducing patches").
+
+[profile]
+title = "macOS 26 Tahoe"
+status = "research"
+darwin = 25
+smbios_model = "iMac20,1"
+overlays = ["../_common/config-overlay.plist", "../ventura/config-overlay.plist"]
+debug_overlays = ["../_common/config-overlay.debug.plist"]
+usb_map = "../../hardware/usb/nuc6i7kyb.toml"
+boot_args = ["forceRenderStandby=0", "-ibtcompatbeta"]
+debug_boot_args = ["-v", "keepsyms=1", "debug=0x100", "msgbuf=1048576", "-liludbgall"]
+
+[features]
+bluetooth = true
+wifi = "none"
+fat32_installer = false
+
+[feature_overlays]
+fat32_installer = ["../_common/overlay-fat32-installer.plist"]
+
+[feature_choices]
+wifi = ["none", "itlwm"]
+
+[[acpi]]
+name = "SSDT-PLUG.aml"
+
+[[acpi]]
+name = "SSDT-EC-USBX.aml"
+
+[[kexts]]
+name = "Lilu"
+
+[[kexts]]
+name = "VirtualSMC"
+
+[[kexts]]
+name = "SMCProcessor"
+
+[[kexts]]
+name = "WhateverGreen"
+
+[[kexts]]
+name = "IntelMausi"
+
+[[kexts]]
+name = "USBMap"
+
+[[kexts]]
+name = "IntelBluetoothFirmware"
+when = "bluetooth"
+
+[[kexts]]
+name = "IntelBTPatcher"
+when = "bluetooth"
+
+[[kexts]]
+name = "BlueToolFixup"
+when = "bluetooth"
+
+[[kexts]]
+name = "itlwm"
+when = "wifi=itlwm"
+
+[[drivers]]
+name = "OpenHfsPlus.efi"
+
+[[drivers]]
+name = "OpenRuntime.efi"
+
+[[drivers]]
+name = "ResetNvramEntry.efi"
+comment = "Reset NVRAM picker entry"
+# --preserve-boot: without it, OpenCore's NVRAM reset also deletes the firmware boot entries for
+# Windows Boot Manager and GRUB (OpenCore Configuration.pdf, ResetNvramEntry).
+arguments = "--preserve-boot"
+
+[[tools]]
+name = "OpenShell.efi"
+flavors = ["debug"]
+
+[[tools]]
+name = "ControlMsrE2.efi"
+flavors = ["debug"]

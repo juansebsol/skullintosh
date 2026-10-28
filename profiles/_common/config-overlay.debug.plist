@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Debug-flavour additions: OpenCore file logging and Apple debug output.
+  Logs are written to the EFI partition as opencore-YYYY-MM-DD-HHMMSS.txt.
+  Review logs before sharing: they can contain device paths and partition GUIDs.
+-->
+<plist version="1.0">
+<dict>
+	<key>Misc</key>
+	<dict>
+		<key>Debug</key>
+		<dict>
+			<key>AppleDebug</key>
+			<true/>
+			<key>ApplePanic</key>
+			<true/>
+			<key>DisableWatchDog</key>
+			<true/>
+			<key>#Target</key>
+			<string>67 = enabled + onscreen + file logging</string>
+			<key>Target</key>
+			<integer>67</integer>
+		</dict>
+		<key>Boot</key>
+		<dict>
+			<key>HideAuxiliary</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
+</plist>

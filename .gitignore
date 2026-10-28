@@ -1,0 +1,25 @@
+# Build outputs and download cache
+/build/
+/dist/
+/.cache/
+
+# Personal, machine-specific data: SMBIOS identities, raw hardware dumps, EFI backups.
+# Never commit anything from here.
+/local/
+*.smbios.toml
+smbios.toml
+inventory-raw*/
+efi-backup*/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+/.venv/
+/venv/
+.pytest_cache/
+.ruff_cache/
+
+# OS clutter
+.DS_Store
+Thumbs.db

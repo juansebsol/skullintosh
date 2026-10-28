@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS 12 Monterey device properties for the NUC6i7KYK.
+
+  Status: CANDIDATE. These values come from the archived upstream project's last reported-working
+  state (Catalina/Big Sur beta, 2020), checked against the current WhateverGreen and Dortania
+  documentation. They have NOT been verified on Monterey yet. Alternatives to A/B test are in
+  docs/graphics.md.
+-->
+<plist version="1.0">
+<dict>
+	<key>DeviceProperties</key>
+	<dict>
+		<key>Add</key>
+		<dict>
+			<key>PciRoot(0x0)/Pci(0x2,0x0)</key>
+			<dict>
+				<key>#AAPL,ig-platform-id</key>
+				<string>0x193B0005 (05003B19): Iris Pro 580 framebuffer. Dortania lists it as the NUC HD 580 recommendation; WhateverGreen documents it (34 MB stolen, needs 64 MB DVMT in BIOS).</string>
+				<key>AAPL,ig-platform-id</key>
+				<data>BQA7GQ==</data>
+				<key>#device-id</key>
+				<string>0x1927 (27190000): upstream's last working spoof ("fix occasional Metal application crash", upstream 50a6520). Native 0x193B is an A/B variant (B-012).</string>
+				<key>device-id</key>
+				<data>JxkAAA==</data>
+				<key>#disable-agdc</key>
+				<string>Upstream last-known-good (a182e79).</string>
+				<key>disable-agdc</key>
+				<data>AQAAAA==</data>
+				<key>#force-online</key>
+				<string>Upstream last-known-good (10d4193); candidate lever for the wake black screen (B-030).</string>
+				<key>force-online</key>
+				<data>AQAAAA==</data>
+			</dict>
+			<key>PciRoot(0x0)/Pci(0x1f,0x3)</key>
+			<dict>
+				<key>#layout-id</key>
+				<string>32 (0x20): AppleALC ALC233 layout used upstream (ed0dec0). Codec and layout unverified (B-050).</string>
+				<key>layout-id</key>
+				<data>IAAAAA==</data>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

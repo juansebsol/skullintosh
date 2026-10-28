@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  macOS 13+ device properties: RESEARCH. macOS 13 removed the Skylake graphics drivers, so the
+  Iris Pro 580 must be spoofed as a Kaby Lake GPU through WhateverGreen (>= 1.6.1).
+
+  Candidate A (this file): Iris Plus 650-class spoof.
+    device-id 0x5927 (Iris Plus 650, GT3e: the closest KBL part to the GT4e Iris Pro 580)
+    AAPL,ig-platform-id 0x59260002 (02002659): Dortania's NUC recommendation for HD 640/650
+    AAPL,GfxYTile 01000000: WhateverGreen's recommendation for SKL-as-KBL spoofs
+  Candidate B (docs/graphics.md): HD 630 spoof, device-id 0x5912 + 0x591B0000 (00001B59).
+
+  The WhateverGreen manual says "Experiments are the best practice": NEITHER candidate is
+  known to accelerate a GT4e part. Do not promote this profile without Metal verification.
+-->
+<plist version="1.0">
+<dict>
+	<key>DeviceProperties</key>
+	<dict>
+		<key>Add</key>
+		<dict>
+			<key>PciRoot(0x0)/Pci(0x2,0x0)</key>
+			<dict>
+				<key>AAPL,GfxYTile</key>
+				<data>AQAAAA==</data>
+				<key>AAPL,ig-platform-id</key>
+				<data>AgAmWQ==</data>
+				<key>device-id</key>
+				<data>J1kAAA==</data>
+				<key>disable-agdc</key>
+				<data>AQAAAA==</data>
+				<key>force-online</key>
+				<data>AQAAAA==</data>
+			</dict>
+			<key>PciRoot(0x0)/Pci(0x1f,0x3)</key>
+			<dict>
+				<key>layout-id</key>
+				<data>IAAAAA==</data>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

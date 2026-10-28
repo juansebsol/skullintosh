@@ -1,0 +1,110 @@
+# macOS 14 Sonoma: RESEARCH. Starts only after Ventura is verified.
+#
+# Known changes (sources: Dortania smbios-support.md, OpenIntelWireless itlwm v2.3.0 assets):
+#  * SMBIOS: iMac18,1 is not supported (last OS 13.6.x). Candidates whose last OS is 14 or later
+#    (Dortania table): iMac19,1 (Coffee Lake desktop) or MacBookAir8,1 (Amber Lake, which uses
+#    the Kaby Lake graphics driver family, last OS 14.7.x). iMac19,1 is the starting point.
+#  * Graphics: same Kaby Lake spoof as Ventura (shared overlay). Unverified.
+#  * Wi-Fi: AirportItlwm ships two Sonoma builds, split at 14.4 (MinKernel/MaxKernel enforced).
+#    wifi=airportitlwm selects the 14.4+ build; use `--set wifi=airportitlwm140` for 14.0-14.3.
+#
+# Open questions (B-041): KBL framebuffer behaviour under iMac19,1; Bluetooth; sleep.
+
+[profile]
+title = "macOS 14 Sonoma"
+status = "research"
+darwin = 23
+smbios_model = "iMac19,1"
+overlays = ["../_common/config-overlay.plist", "../ventura/config-overlay.plist"]
+debug_overlays = ["../_common/config-overlay.debug.plist"]
+usb_map = "../../hardware/usb/nuc6i7kyb.toml"
+boot_args = ["forceRenderStandby=0"]
+debug_boot_args = ["-v", "keepsyms=1", "debug=0x100", "msgbuf=1048576", "-liludbgall"]
+
+[features]
+bluetooth = true
+wifi = "none"
+fat32_installer = false
+nvmefix = false
+
+[feature_overlays]
+fat32_installer = ["../_common/overlay-fat32-installer.plist"]
+
+[feature_choices]
+wifi = ["none", "airportitlwm", "airportitlwm140", "itlwm"]
+
+[[acpi]]
+name = "SSDT-PLUG.aml"
+
+[[acpi]]
+name = "SSDT-EC-USBX.aml"
+
+[[kexts]]
+name = "Lilu"
+
+[[kexts]]
+name = "VirtualSMC"
+
+[[kexts]]
+name = "SMCProcessor"
+
+[[kexts]]
+name = "WhateverGreen"
+
+[[kexts]]
+name = "AppleALC"
+
+[[kexts]]
+name = "IntelMausi"
+
+[[kexts]]
+name = "USBMap"
+
+[[kexts]]
+name = "NVMeFix"
+when = "nvmefix"
+
+[[kexts]]
+name = "IntelBluetoothFirmware"
+when = "bluetooth"
+
+[[kexts]]
+name = "IntelBTPatcher"
+when = "bluetooth"
+
+[[kexts]]
+name = "BlueToolFixup"
+when = "bluetooth"
+
+[[kexts]]
+name = "AirportItlwm-Sonoma144"
+when = "wifi=airportitlwm"
+
+[[kexts]]
+name = "AirportItlwm-Sonoma140"
+when = "wifi=airportitlwm140"
+
+[[kexts]]
+name = "itlwm"
+when = "wifi=itlwm"
+
+[[drivers]]
+name = "OpenHfsPlus.efi"
+
+[[drivers]]
+name = "OpenRuntime.efi"
+
+[[drivers]]
+name = "ResetNvramEntry.efi"
+comment = "Reset NVRAM picker entry"
+# --preserve-boot: without it, OpenCore's NVRAM reset also deletes the firmware boot entries for
+# Windows Boot Manager and GRUB (OpenCore Configuration.pdf, ResetNvramEntry).
+arguments = "--preserve-boot"
+
+[[tools]]
+name = "OpenShell.efi"
+flavors = ["debug"]
+
+[[tools]]
+name = "ControlMsrE2.efi"
+flavors = ["debug"]
