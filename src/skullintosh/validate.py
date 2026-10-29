@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import platform
 import plistlib
+import re
 import subprocess
 import tempfile
 import zipfile
@@ -18,7 +19,7 @@ from xml.parsers.expat import ExpatError
 from skullintosh.build import PERSONAL_MARKER, read_provenance
 from skullintosh.errors import SkullintoshError
 from skullintosh.fetch import cache_dir, ensure_asset
-from skullintosh.identity import non_placeholder_fields
+from skullintosh.identity import ZERO_UUID, non_placeholder_fields
 from skullintosh.manifest import Manifest, load_manifest
 from skullintosh.overlay import load_plist
 from skullintosh.profiles import load_profile
@@ -285,6 +286,22 @@ def check_security(config: dict, profile_allows_relaxation: bool = False) -> lis
                 ERROR,
                 "secure-boot-disabled",
                 "SecureBootModel is Disabled without a documented reason",
+            )
+        )
+    uuid = str(config["PlatformInfo"]["Generic"].get("SystemUUID", "")).upper()
+    if (
+        sbm != "Disabled"
+        and not config["Misc"]["Security"].get("ApECID")
+        and config["PlatformInfo"].get("Automatic")
+        and uuid != "OEM"
+        and (uuid in ("", ZERO_UUID) or not re.fullmatch(r"[0-9A-F-]{36}", uuid))
+    ):
+        out.append(
+            Finding(
+                ERROR,
+                "secure-boot-id",
+                "Apple Secure Boot needs a non-zero SystemUUID (or OEM) when ApECID is 0; "
+                "OpenCore halts with 'Grabbed zero system-id for SB'",
             )
         )
     if config["Misc"]["Security"].get("DmgLoading") == "Any":

@@ -57,14 +57,16 @@ are git-ignored (`inventory-raw*/`, `local/`).
 
 | Entry | Disk | Notes |
 | --- | --- | --- |
-| _pending_ | | |
+| `LAN : IBA CL Slot 00FE v0104` | — | PXE, firmware built-in |
+| `THNSN5128GPU7 TOSHIBA : PART 0 : Boot Drive` and `UEFI : THNSN5128GPU7 TOSHIBA : PART 0 : OS Bootloader` | M.2 #1 | Legacy and UEFI entries for the internal NVMe, as shown in the F10 menu on 2026-10-28 |
+| `USB : <stick> : PART 0 : OS Bootloader` and `UEFI : USB : <stick> : PART 0 : …` | stick | Both appear for a plugged-in installer stick; only the `UEFI :` one starts OpenCore |
 
 ## Disk layout (no serials)
 
 | Slot | Model | OS | Partition style | ESP size |
 | --- | --- | --- | --- | --- |
-| M.2 #1 | _pending_ | Windows / Linux | | |
-| M.2 #2 | _pending_ | Windows / Linux | | |
+| M.2 #1 | Toshiba THNSN5128GPU7 (128 GB NVMe) | macOS Monterey only since 2026-10-29 (was Windows) | GPT: ESP 272.6 MB (`SYSTEM`, now OpenCore), Microsoft Reserved 134.2 MB (leftover), APFS container 127.6 GB | 272.6 MB |
+| M.2 #2 | empty on the reference machine | — | | |
 
 ## BIOS settings as found
 

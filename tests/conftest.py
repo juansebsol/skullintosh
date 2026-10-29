@@ -83,11 +83,12 @@ def base_config() -> dict:
             }
         },
         "PlatformInfo": {
+            "Automatic": True,
             "Generic": {
                 "SystemSerialNumber": "W00000000001",
                 "MLB": "M0000000000000001",
-                "SystemUUID": "00000000-0000-0000-0000-000000000000",
+                "SystemUUID": "OEM",
                 "ROM": bytes.fromhex("112233445566"),
-            }
+            },
         },
     }

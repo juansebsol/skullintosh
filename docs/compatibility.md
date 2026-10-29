@@ -7,7 +7,9 @@ digest. CI results never count.
 Legend: **✅ verified** · **🟡 expected** (documented upstream or by Dortania/acidanthera, not yet
 tested here) · **❓ unknown** · **⛔ known broken / unsupported** · **— not applicable**
 
-_Last updated: 2026-10-28. Hardware tests performed by this project so far: **none**._
+_Last updated: 2026-10-29. Hardware sessions so far: one informal session on 2026-10-28/29
+(Monterey 12.7.6, debug flavour, reference NUC). No formal test report with a tree digest yet, so
+no cell is ✅._
 
 ## By macOS version
 
@@ -15,7 +17,7 @@ _Last updated: 2026-10-28. Hardware tests performed by this project so far: **no
 | --- | --- | --- | --- | --- | --- |
 | Profile status | candidate | research | research | research | research |
 | SMBIOS | `iMac17,1` | `iMac18,1` | `iMac19,1` | `iMac19,1` | `iMac20,1` |
-| Boots | ❓ | ❓ | ❓ | ❓ | ❓ |
+| Boots | 🟡 installed and booted to the desktop on 2026-10-29 (12.7.6, debug flavour, internal NVMe); T-BOOT-3/4 and the report are pending | ❓ | ❓ | ❓ | ❓ |
 | iGPU acceleration (Metal) | 🟡 native SKL drivers; upstream reported Metal on Catalina | ❓ needs KBL spoof (B-040) | ❓ | ❓ (B-042) | ❓ likely needs OCLP root patches (B-043) |
 | HDMI 2.0 4K60 | ❓ (B-013) | ❓ | ❓ | ❓ | ❓ |
 | Mini DisplayPort | 🟡 | ❓ | ❓ | ❓ | ❓ |
@@ -26,7 +28,7 @@ _Last updated: 2026-10-28. Hardware tests performed by this project so far: **no
 | TOSLINK optical | ❓ (B-051) | ❓ | ❓ | ❓ | ⛔ |
 | Ethernet I219-LM | 🟡 IntelMausi | 🟡 | 🟡 | 🟡 | ❓ |
 | Wi-Fi AC 8260 | 🟡 AirportItlwm (Monterey build) | 🟡 AirportItlwm (Ventura build) | 🟡 AirportItlwm (14.0 / 14.4 builds) | 🟡 itlwm + HeliPort only | ❓ itlwm untested on 26 |
-| Bluetooth | 🟡 IntelBluetoothFirmware + BlueToolFixup | 🟡 | 🟡 | 🟡 | 🟡 needs `-ibtcompatbeta` |
+| Bluetooth | 🟡 IntelBluetoothFirmware + BlueToolFixup; the verbose installer boot showed the firmware upload (`ibt-11-5.ddc`, "Firmware download done"); pairing untested | 🟡 | 🟡 | 🟡 | 🟡 needs `-ibtcompatbeta` |
 | USB map | ❓ provisional (B-010) | ❓ | ❓ | ❓ | ❓ |
 | Sleep / wake | ⛔ upstream: black screen on wake (B-030) | ❓ | ❓ | ❓ | ❓ |
 | Thunderbolt 3 hot-plug | ⛔ upstream: boot-time only (B-070) | ❓ | ❓ | ❓ | ❓ |
@@ -34,7 +36,7 @@ _Last updated: 2026-10-28. Hardware tests performed by this project so far: **no
 | CPU power management | 🟡 XCPM via SSDT-PLUG | 🟡 | 🟡 | 🟡 | 🟡 |
 | NVMe | 🟡 native | 🟡 | 🟡 | 🟡 | 🟡 |
 | FileVault | ❓ (B-062) | ❓ | ❓ | ❓ | ❓ |
-| Windows/Linux untouched after testing | ❓ must be checked every session ([windows-linux.md](windows-linux.md)) | | | | |
+| Windows/Linux untouched after testing | — on the reference machine since 2026-10-29 (its only disk is macOS-only by the owner's decision); ❓ for any machine that keeps other OSes ([windows-linux.md](windows-linux.md)) | | | | |
 
 ## Why each newer version is harder
 

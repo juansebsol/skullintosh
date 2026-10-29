@@ -1,7 +1,13 @@
 # Protecting the existing Windows and Linux installations
 
-The reference machine already dual-boots Windows and Linux from its two internal M.2 SSDs.
+This page is written for a machine that dual-boots Windows and Linux from internal SSDs.
 Skullintosh development must leave both **independently bootable** at all times.
+
+> [!NOTE]
+> The project's reference NUC no longer matches this picture: since 2026-10-29 its only disk
+> holds macOS, by its owner's decision, with OpenCore on that disk's ESP (the one documented
+> exception in [installation.md](installation.md#if-macos-is-the-only-os-on-the-machines-only-disk)).
+> Everything below still applies to any machine that keeps other operating systems.
 
 ## Principles
 

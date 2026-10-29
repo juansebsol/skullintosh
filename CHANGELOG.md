@@ -29,6 +29,18 @@ goals, not compatibility promises.
   reporting with reconciliation against expected device IDs.
 * Documentation set, issue templates, CI (lint, tests, end-to-end builds, ocvalidate,
   reproducibility, secret scan) and a weekly link check.
+* Record of the first hardware session (2026-10-28/29): Monterey 12.7.6 installs and boots on
+  the reference NUC from the debug flavour. The installation guide now covers the F10 menu's
+  legacy/UEFI entries, the installer's restart loop, the leftover Windows Boot Manager screen
+  (`winload.efi`, `0xc0000225`), the Setup Assistant, and the macOS-only disk path (OpenCore on
+  the internal ESP). Troubleshooting, compatibility, inventory and backlog updated to match.
+
+### Fixed
+
+* Shared builds halted in OpenCore with `Grabbed zero system-id for SB` (found on the first
+  hardware boot). They now set `PlatformInfo/Generic/SystemUUID` to `OEM` so Apple Secure Boot
+  uses the firmware's own UUID; a new `secure-boot-id` validator rule catches a zero UUID with
+  Secure Boot on, and `--smbios` identities can no longer use the zero UUID.
 
 ### Changed from upstream (see the audit for reasons)
 

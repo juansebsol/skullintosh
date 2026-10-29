@@ -9,6 +9,10 @@ step assumes you made the backups in
 OpenCore lives only on stick A (and possibly external disk B). Unplug both and power on.
 The firmware boots its own default entry exactly as before.
 
+This level doesn't exist on a macOS-only machine where OpenCore was copied to the internal ESP
+([installation.md](installation.md#if-macos-is-the-only-os-on-the-machines-only-disk)). There the
+stick *is* the recovery path: boot it from F10 and choose the macOS volume, then fix the ESP.
+
 ## Level 1: use the firmware boot menu
 
 Press **F10** at power-on and pick **Windows Boot Manager** or the Linux entry (`ubuntu`,

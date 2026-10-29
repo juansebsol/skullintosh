@@ -15,7 +15,7 @@ from pathlib import Path
 from skullintosh import __version__
 from skullintosh.errors import SkullintoshError
 from skullintosh.fetch import cache_dir, ensure_asset
-from skullintosh.identity import load_identity
+from skullintosh.identity import PLACEHOLDERS, load_identity
 from skullintosh.manifest import Asset, Manifest, load_manifest
 from skullintosh.overlay import apply_overlay, load_plist, reset_owned
 from skullintosh.profiles import (
@@ -261,8 +261,7 @@ def build(root: Path, req: BuildRequest) -> Path:
 
         generic = config["PlatformInfo"]["Generic"]
         generic["SystemProductName"] = profile.smbios_model
-        if identity:
-            generic.update(identity)
+        generic.update(identity or PLACEHOLDERS)
 
         sources.add("EFI/OC/config.plist", GENERATED)
         with open(oc_dir / "config.plist", "wb") as fh:

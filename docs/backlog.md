@@ -75,13 +75,19 @@ exists and needs disabling for macOS, and the CPU object names.
 
 Follow [installation.md](installation.md) with the debug flavour. Record T-BOOT-1…4 and attach
 the OpenCore log (reviewed).
-**Done when:** Monterey installs on the external SSD and cold-boots 5/5, or the blocker is
-documented with logs.
+**Status 2026-10-29:** Monterey 12.7.6 installed and booted to the desktop on the reference NUC
+(debug flavour, internal NVMe, see [progress-report.md](progress-report.md)). Still open: the
+formal report with the tree digest, `sw_vers`, BIOS version, and T-BOOT-3/4.
+**Done when:** Monterey cold-boots 5/5 and the report is filed, or the blocker is documented
+with logs.
 
 ### B-008
 **Verify Windows and Linux are unaffected** · P0 · 🖥 · Phase 7
 
 Run the "after each test session" checklist in [windows-linux.md](windows-linux.md).
+**Status 2026-10-29:** parked. The reference machine's only disk is macOS-only by the owner's
+decision, so there is no Windows or Linux left to check there. Applies again on any machine
+that keeps other OSes.
 **Done when:** T-DUAL-1…3 pass after B-007. Repeat after every hardware session.
 
 ### B-010

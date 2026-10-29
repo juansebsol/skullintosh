@@ -170,6 +170,15 @@ def test_nvram_reset_must_preserve_boot_entries():
     assert codes(check_dual_boot_safety(cfg)) == ["nvram-reset"]
 
 
+def test_secure_boot_needs_nonzero_system_id():
+    cfg = base_config()
+    assert "secure-boot-id" not in codes(check_security(cfg))
+    cfg["PlatformInfo"]["Generic"]["SystemUUID"] = "00000000-0000-0000-0000-000000000000"
+    assert "secure-boot-id" in codes(check_security(cfg))
+    cfg["Misc"]["Security"]["ApECID"] = 1234
+    assert "secure-boot-id" not in codes(check_security(cfg))
+
+
 def test_identity_leak_detected(tmp_path):
     cfg = base_config()
     assert check_identity(cfg, tmp_path, {"personalized": False}) == []

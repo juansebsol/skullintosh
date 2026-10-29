@@ -19,7 +19,7 @@ Use the **Compatibility test report** issue template.
 | ID | Test | Pass criteria | How to check |
 | --- | --- | --- | --- |
 | T-BOOT-1 | Boot installer from USB via F10 | Installer GUI appears | — |
-| T-BOOT-2 | Install to external disk B | Completes; internal disks untouched | Disk Utility before/after |
+| T-BOOT-2 | Install to disk B (external, or the machine's only disk on a macOS-only machine) | Completes; every other disk untouched | Disk Utility before/after; the installer restarts several times, see [installation.md](installation.md#8-install-onto-disk-b-only) |
 | T-BOOT-3 | Cold boot ×5 into installed macOS | 5/5 reach the login window | — |
 | T-BOOT-4 | Reboot and shutdown ×5 | No hang, no panic | `log show --last boot --predicate 'eventMessage contains "panic"'` |
 | T-GFX-1 | Real graphics acceleration | VRAM ≈ 1536 MB; Metal supported | System Information → Graphics/Displays; `system_profiler SPDisplaysDataType` shows "Metal Support" |
