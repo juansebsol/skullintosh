@@ -9,16 +9,19 @@ folder. It ships a small Python tool that builds one from pinned, checksum-verif
 releases, validates it, and records where every byte came from.
 
 > [!WARNING]
-> **Nothing here has been verified on hardware yet.** The Monterey profile is a *candidate*:
-> it passes OpenCore's own `ocvalidate` and Skullintosh's checks, but nobody has booted it on a
-> NUC6i7KYK. CI passing is not evidence that macOS boots. See
-> [docs/compatibility.md](docs/compatibility.md) for exactly what is known.
+> **Monterey installs and boots on a real NUC6i7KYK, but isn't verified yet.** On 2026-10-29
+> the debug build installed macOS 12.7.6 on the reference machine, which now boots it from its
+> internal disk. Graphics acceleration, audio, USB, sleep and Wi-Fi haven't been tested, so the
+> profile stays a *candidate* until the core
+> [hardware tests](docs/hardware-testing.md#core-required-for-verified) pass. CI passing is
+> not evidence that anything works. See [docs/compatibility.md](docs/compatibility.md) for
+> exactly what is known.
 
 ## Status
 
 | macOS | Profile | Status | Notes |
 | --- | --- | --- | --- |
-| 12 Monterey | `monterey` | **candidate** (unverified) | Baseline: native Skylake graphics, `iMac17,1` |
+| 12 Monterey | `monterey` | **candidate** (installs and boots; core tests pending) | Baseline: native Skylake graphics, `iMac17,1` |
 | 13 Ventura | `ventura` | research | Needs a Kaby Lake graphics spoof; not yet known to accelerate Iris Pro 580 |
 | 14 Sonoma | `sonoma` | research | Starts after Ventura |
 | 15 Sequoia | `sequoia` | research | No official AirportItlwm build; graphics path unknown |

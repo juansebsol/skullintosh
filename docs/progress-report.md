@@ -37,7 +37,7 @@ T-BOOT-3/4) before "Boots" can become ✅.
 | --- | --- | --- |
 | 0 Upstream audit | ✅ done (no hardware needed) | [upstream-audit.md](upstream-audit.md): every ACPI table, quirk, device property, kext and script, with a decision and source |
 | 1 Hardware inventory | 🟡 tooling done; **data pending** | `scripts/inventory/*`, `skullintosh report --input`, [hardware-inventory.md](hardware-inventory.md), [hardware/reference/nuc6i7kyk.toml](../hardware/reference/nuc6i7kyk.toml) |
-| 2 Monterey baseline | 🟡 EFI builds and validates; **boot unverified** | [profiles/monterey](../profiles/monterey), release + debug flavours |
+| 2 Monterey baseline | 🟡 installs and boots on the reference NUC (informal, 2026-10-29); **core tests and report pending** | [profiles/monterey](../profiles/monterey), release + debug flavours |
 | 3 Build toolkit | ✅ done | `src/skullintosh` (stdlib only), [manifests/dependencies.toml](../manifests/dependencies.toml) |
 | 4 USB map | 🟡 generator done; map **provisional** | [usb-mapping.md](usb-mapping.md), [hardware/usb/nuc6i7kyb.toml](../hardware/usb/nuc6i7kyb.toml) |
 | 5 Hardware fixes | ⏳ planned per subsystem | [backlog.md](backlog.md), [graphics.md](graphics.md), [hardware-testing.md](hardware-testing.md) |
