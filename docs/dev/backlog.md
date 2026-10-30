@@ -146,6 +146,9 @@ vary one at a time: `force-online`, `disable-agdc`, LSPCON, which display port i
 map's wake behaviour, `pmset` settings (hibernatemode 0, standby 0, tcpkeepalive 0), and
 HibernationFixup. Gather `pmset -g log` and wake reasons. **Done when:** 10/10 wakes restore the
 display, or the cause is documented.
+**2026-10-29:** on Monterey 12.7.6 the NUC slept and didn't wake. After `hibernatemode 0`,
+`standby 0`, `autopoweroff 0`, `powernap 0` and `proximitywake 0` it woke (informal). These are
+now `scripts/macos/post-install.sh`. Next: T-PWR-2 ×10, and which display port was used.
 
 ### B-040
 **Ventura graphics** · P1 · 🖥 · Phase 6 — Only after B-012. Test KBL-A and KBL-B from

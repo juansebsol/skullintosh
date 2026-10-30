@@ -34,6 +34,9 @@ goals, not compatibility promises.
   legacy/UEFI entries, the installer's restart loop, the leftover Windows Boot Manager screen
   (`winload.efi`, `0xc0000225`), the Setup Assistant, and the macOS-only disk path (OpenCore on
   the internal ESP). Troubleshooting, compatibility, inventory and backlog updated to match.
+* `scripts/macos/post-install.sh`: applies the power settings that let the NUC wake from
+  sleep (`hibernatemode 0`, `standby 0`, `autopoweroff 0`, `powernap 0`, `proximitywake 0`),
+  with `--dry-run`. The installation guide runs it as step 8.
 
 ### Changed
 

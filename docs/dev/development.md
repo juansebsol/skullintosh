@@ -29,6 +29,7 @@ hardware/
 src/skullintosh/              the CLI (see below)
 scripts/inventory/            read-only hardware inventory (Linux, Windows)
 scripts/backup/               read-only boot-environment backups (Linux, Windows)
+scripts/macos/                post-install macOS settings (pmset), run by the user on the NUC
 licenses/                     third-party license texts at the pinned tags
 tests/                        unit tests + network-marked end-to-end tests
 docs/                         user and contributor documentation

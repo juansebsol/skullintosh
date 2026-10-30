@@ -193,7 +193,22 @@ F2 → Boot → Boot Priority.
 **Keep the stick.** It is the rescue path: if the disk ever stops booting, F10 → `UEFI : USB` →
 `Macintosh HD` still works.
 
-## 8. Check that it works
+## 8. Apply the macOS settings
+
+Some fixes live in macOS's own settings, where the EFI can't reach them. On the NUC, download
+and run the post-install script:
+
+```bash
+curl -fsSLO https://raw.githubusercontent.com/juansebsol/skullintosh/main/scripts/macos/post-install.sh
+bash post-install.sh --dry-run   # shows what it will change
+sudo bash post-install.sh
+```
+
+It turns off hibernation and the related deep-sleep modes, which non-Apple firmware can't wake
+from. Without it, the reference NUC went to sleep and never woke up. Undo with
+`sudo pmset restoredefaults`.
+
+## 9. Check that it works
 
 Run the core checks in [hardware-testing.md](hardware-testing.md#core-required-for-verified) and
 report the results (Compatibility test report issue). Until those pass, the Monterey profile is a

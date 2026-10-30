@@ -30,7 +30,7 @@ no cell is ✅._
 | Wi-Fi AC 8260 | 🟡 AirportItlwm (Monterey build): joined a network and stayed connected on 2026-10-29 (informal); throughput and sleep untested | 🟡 AirportItlwm (Ventura build) | 🟡 AirportItlwm (14.0 / 14.4 builds) | 🟡 itlwm + HeliPort only | ❓ itlwm untested on 26 |
 | Bluetooth | 🟡 IntelBluetoothFirmware + BlueToolFixup; the verbose installer boot showed the firmware upload (`ibt-11-5.ddc`, "Firmware download done"); pairing untested | 🟡 | 🟡 | 🟡 | 🟡 needs `-ibtcompatbeta` |
 | USB map | ❓ provisional (B-010) | ❓ | ❓ | ❓ | ❓ |
-| Sleep / wake | ⛔ upstream: black screen on wake (B-030) | ❓ | ❓ | ❓ | ❓ |
+| Sleep / wake | 🟡 sleeps and wakes after the post-install power settings (`hibernatemode 0` …), informal, 2026-10-29; without them it never woke. T-PWR-2 ×10 pending (B-030) | ❓ | ❓ | ❓ | ❓ |
 | Thunderbolt 3 hot-plug | ⛔ upstream: boot-time only (B-070) | ❓ | ❓ | ❓ | ❓ |
 | SDXC reader | ⛔ upstream: unsupported (B-080) | ⛔ | ⛔ | ⛔ | ⛔ |
 | CPU power management | 🟡 XCPM via SSDT-PLUG | 🟡 | 🟡 | 🟡 | 🟡 |

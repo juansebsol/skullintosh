@@ -55,7 +55,7 @@ them; they can contain device paths and partition GUIDs.
 | Wi-Fi greyed out in the Setup Assistant / no Wi-Fi menu | The build has no Wi-Fi driver (`wifi = none`, the default). See [wifi.md](wifi.md) |
 | Unsure which `/Volumes/EFI` is which disk | Both EFI partitions can be named `EFI` (or `SYSTEM` if Windows formatted one). Mount them at fixed folders by disk identifier, as in [installation.md, step 7](installation.md#7-boot-without-the-stick) |
 | USB 3 devices run at USB 2 speed | Map: SS ports missing ([usb-mapping.md](dev/usb-mapping.md)) |
-| Black screen on wake | Known upstream issue ([B-030](dev/backlog.md#b-030)); try waking by keyboard, then replugging the display |
+| Sleeps but never wakes, or black screen on wake | Hibernation is on. Run the post-install script ([installation.md, step 8](installation.md#8-apply-the-macos-settings)); that fixed it on the reference NUC. If it persists: wake by keyboard, replug the display, and check over SSH whether the NUC is awake ([B-030](dev/backlog.md#b-030)) |
 | iCloud/iMessage refuses | SMBIOS identity missing or placeholder; build with `--smbios` ([installation.md](installation.md)) |
 
 ## Reporting
