@@ -19,7 +19,7 @@ Use the **Compatibility test report** issue template.
 | ID | Test | Pass criteria | How to check |
 | --- | --- | --- | --- |
 | T-BOOT-1 | Boot installer from USB via F10 | Installer GUI appears | — |
-| T-BOOT-2 | Install to disk B (external, or the machine's only disk on a macOS-only machine) | Completes; every other disk untouched | Disk Utility before/after; the installer restarts several times, see [installation.md](installation.md#8-install-onto-disk-b-only) |
+| T-BOOT-2 | Install to the target disk | Completes; every other disk untouched | Disk Utility before/after; the installer restarts several times, see [installation.md](installation.md#6-install-macos) |
 | T-BOOT-3 | Cold boot ×5 into installed macOS | 5/5 reach the login window | — |
 | T-BOOT-4 | Reboot and shutdown ×5 | No hang, no panic | `log show --last boot --predicate 'eventMessage contains "panic"'` |
 | T-GFX-1 | Real graphics acceleration | VRAM ≈ 1536 MB; Metal supported | System Information → Graphics/Displays; `system_profiler SPDisplaysDataType` shows "Metal Support" |
@@ -27,7 +27,7 @@ Use the **Compatibility test report** issue template.
 | T-GFX-3 | Metal workload | No crash, plausible FPS | e.g. Geekbench Metal / Unigine Heaven (record score) |
 | T-GFX-4 | Video decode | Hardware HEVC/H.264 decode | VideoProc or `VDADecoderChecker`-style tool; Activity Monitor GPU history |
 | T-NET-1 | Ethernet | DHCP lease, 1 Gbit/s link, sustained transfer | Network settings; `iperf3` |
-| T-USB-1 | USB map | See [usb-mapping.md](usb-mapping.md) test table | — |
+| T-USB-1 | USB map | See [usb-mapping.md](dev/usb-mapping.md) test table | — |
 | T-AUD-1 | Headphone output | Sound, no distortion | Plug in headphones |
 | T-SEC-1 | SIP enabled | `System Integrity Protection status: enabled.` | `csrutil status` |
 | T-DUAL-1 | Windows still boots via F10 | Reaches login | — |
@@ -65,7 +65,7 @@ Use the **Compatibility test report** issue template.
 
 ## Comparing configurations
 
-When testing a change (for example the `device-id` variants in [graphics.md](graphics.md)):
+When testing a change (for example the `device-id` variants in [graphics.md](dev/graphics.md)):
 
 1. Build both variants; keep both `provenance.json` files.
 2. `diff` the two generated `config.plist` files and paste the diff into the report.

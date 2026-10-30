@@ -29,7 +29,7 @@ def test_relative_links_resolve(root):
 
 
 def test_backlog_references_are_defined(root):
-    backlog = (root / "docs" / "backlog.md").read_text(encoding="utf-8")
+    backlog = (root / "docs" / "dev" / "backlog.md").read_text(encoding="utf-8")
     defined = set(re.findall(r"^### (B-\d{3})", backlog, re.M))
     used = set()
     for path in [*markdown_files(root), *root.glob("profiles/**/*"), *root.glob("hardware/**/*")]:
@@ -47,14 +47,16 @@ def test_required_documents_exist(root):
         "LICENSE",
         "THIRD_PARTY_NOTICES.md",
         "docs/installation.md",
+        "docs/wifi.md",
+        "docs/apple-services.md",
         "docs/bios-settings.md",
         "docs/windows-linux.md",
         "docs/compatibility.md",
-        "docs/hardware-inventory.md",
-        "docs/graphics.md",
+        "docs/dev/hardware-inventory.md",
+        "docs/dev/graphics.md",
         "docs/troubleshooting.md",
         "docs/recovery.md",
-        "docs/development.md",
-        "docs/upstream-audit.md",
+        "docs/dev/development.md",
+        "docs/dev/upstream-audit.md",
     ]:
         assert (root / name).is_file(), name

@@ -2,7 +2,7 @@
 
 Press **F2** at power-on to enter setup and **F10** for the one-time boot menu. Exact menu
 names differ between BIOS versions. Record your version (Main screen) in
-[hardware-inventory.md](hardware-inventory.md).
+[hardware-inventory.md](dev/hardware-inventory.md).
 
 > [!IMPORTANT]
 > **Before changing anything:** photograph every screen you'll touch, or note the current
@@ -15,7 +15,7 @@ names differ between BIOS versions. Record your version (Main screen) in
 
 | Setting (typical location) | Set to | Why | Effect on Windows/Linux | Original value |
 | --- | --- | --- | --- | --- |
-| Boot → Secure Boot | **Disabled** | Skullintosh's OpenCore is not signed for UEFI Secure Boot ([B-061](backlog.md#b-061)) | Windows boots fine; BitLocker may ask for the recovery key once. Linux with shim still boots. | |
+| Boot → Secure Boot | **Disabled** | Skullintosh's OpenCore is not signed for UEFI Secure Boot ([B-061](dev/backlog.md#b-061)) | Windows boots fine; BitLocker may ask for the recovery key once. Linux with shim still boots. | |
 | Boot → Boot Configuration → UEFI Boot | **Enabled** | OpenCore is UEFI-only | None (already UEFI on modern installs) | |
 | Boot → Boot Configuration → Legacy Boot | Disabled (if present) | Avoid CSM | None for UEFI installs | |
 | Boot → Boot Configuration → Fast Boot | **Disabled** | USB devices must be enumerated so the stick and F10 menu work | Slightly slower POST | |
@@ -38,8 +38,8 @@ Only change these while testing that subsystem, and change them back afterwards.
 
 | Setting | Test value | For | Risk to other OSes |
 | --- | --- | --- | --- |
-| Security → Thunderbolt Security Level | Legacy Mode (no security) | Thunderbolt tests ([B-070](backlog.md#b-070)); the NUC8 project needs this | Windows no longer asks before authorizing Thunderbolt devices |
-| Power → Wake on LAN from S4/S5 | Stay Off | Sleep tests ([B-030](backlog.md#b-030)) | Wake-on-LAN stops working |
+| Security → Thunderbolt Security Level | Legacy Mode (no security) | Thunderbolt tests ([B-070](dev/backlog.md#b-070)); the NUC8 project needs this | Windows no longer asks before authorizing Thunderbolt devices |
+| Power → Wake on LAN from S4/S5 | Stay Off | Sleep tests ([B-030](dev/backlog.md#b-030)) | Wake-on-LAN stops working |
 | Devices → USB → Port Device Charging Mode | Off | Sleep/USB tests | No charging from the yellow port while off |
 | Devices → Onboard Devices → Card Reader, Consumer IR, Wi-Fi, Bluetooth | Disabled | Isolating a subsystem | Device disappears from all OSes |
 
@@ -49,7 +49,7 @@ The NUC6 BIOS is not known to expose a CFG Lock option, so Skullintosh keeps the
 `AppleXcpmCfgLock` quirk enabled. The debug build includes `ControlMsrE2.efi`. Running it
 **without arguments** only reports whether MSR 0xE2 is locked. Don't run it with
 `unlock`/`lock`, which write firmware variables, unless a maintainer has asked you to and you've
-recorded the result ([B-006](backlog.md#b-006)).
+recorded the result ([B-006](dev/backlog.md#b-006)).
 
 ## Rolling back
 

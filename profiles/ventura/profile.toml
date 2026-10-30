@@ -7,7 +7,7 @@
 #  * Graphics: Skylake drivers removed. Kaby Lake spoof via WhateverGreen (config-overlay.plist).
 #  * Wi-Fi: AirportItlwm has a Ventura-specific build (v2.3.0).
 #
-# Open questions (docs/backlog.md B-040): does any KBL spoof give working Metal on GT4e? Do
+# Open questions (docs/dev/backlog.md B-040): does any KBL spoof give working Metal on GT4e? Do
 # HDMI 2.0 (LSPCON) and wake behave the same as on Monterey?
 
 [profile]

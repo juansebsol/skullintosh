@@ -6,7 +6,7 @@
   Status: CANDIDATE. These values come from the archived upstream project's last reported-working
   state (Catalina/Big Sur beta, 2020), checked against the current WhateverGreen and Dortania
   documentation. They have NOT been verified on Monterey yet. Alternatives to A/B test are in
-  docs/graphics.md.
+  docs/dev/graphics.md.
 -->
 <plist version="1.0">
 <dict>

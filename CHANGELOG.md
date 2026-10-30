@@ -35,6 +35,13 @@ goals, not compatibility promises.
   (`winload.efi`, `0xc0000225`), the Setup Assistant, and the macOS-only disk path (OpenCore on
   the internal ESP). Troubleshooting, compatibility, inventory and backlog updated to match.
 
+### Changed
+
+* Documentation reorganized: user guides stay in `docs/`, developer and research notes moved to
+  `docs/dev/`. `installation.md` was rewritten around the path run on the reference NUC (Mac
+  installer, macOS-only disk, booting without the stick, updating the EFI). New `wifi.md` and
+  `apple-services.md`; backups moved into `windows-linux.md`. The README is shorter.
+
 ### Fixed
 
 * Shared builds halted in OpenCore with `Grabbed zero system-id for SB` (found on the first

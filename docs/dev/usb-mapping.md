@@ -3,7 +3,7 @@
 macOS only enumerates 15 ports per xHCI controller, and `XhciPortLimit` doesn't work on
 macOS 11.3+. A correct map is therefore required. Skullintosh builds a **codeless**
 `USBMap.kext` (an `AppleUSBHostMergeProperties` personality, no executable) from
-[hardware/usb/nuc6i7kyb.toml](../hardware/usb/nuc6i7kyb.toml) for every profile, matching the
+[hardware/usb/nuc6i7kyb.toml](../../hardware/usb/nuc6i7kyb.toml) for every profile, matching the
 profile's SMBIOS model.
 
 ## Current state: provisional

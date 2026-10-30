@@ -4,7 +4,7 @@
 # The port list below reproduces the archived upstream SSDT-UIAC.dsl (alexpotter1, 2020), which
 # was built for this exact model. Which physical socket each HSxx/SSxx pair belongs to was never
 # recorded, and the Bluetooth assignment (HS09, internal) has not been confirmed on this project's
-# hardware. Replace this file with a USBToolBox capture (docs/usb-mapping.md, backlog B-010) and
+# hardware. Replace this file with a USBToolBox capture (docs/dev/usb-mapping.md, backlog B-010) and
 # set `verified = true` only after the physical tests in docs/hardware-testing.md pass.
 #
 # Connector types: 0 = USB2 Type-A, 3 = USB3 Type-A, 9/10 = Type-C, 255 = internal.

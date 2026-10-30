@@ -8,7 +8,7 @@
     device-id 0x5927 (Iris Plus 650, GT3e: the closest KBL part to the GT4e Iris Pro 580)
     AAPL,ig-platform-id 0x59260002 (02002659): Dortania's NUC recommendation for HD 640/650
     AAPL,GfxYTile 01000000: WhateverGreen's recommendation for SKL-as-KBL spoofs
-  Candidate B (docs/graphics.md): HD 630 spoof, device-id 0x5912 + 0x591B0000 (00001B59).
+  Candidate B (docs/dev/graphics.md): HD 630 spoof, device-id 0x5912 + 0x591B0000 (00001B59).
 
   The WhateverGreen manual says "Experiments are the best practice": NEITHER candidate is
   known to accelerate a GT4e part. Do not promote this profile without Metal verification.

@@ -23,9 +23,9 @@ test reports** from real NUC6i7KYK owners, and they need no coding.
 
 * **Test reports:** use the *Compatibility test report* or *Boot failure* issue template.
 * **Hardware inventory:** run the inventory scripts and post the **sanitized** report
-  ([docs/hardware-inventory.md](docs/hardware-inventory.md)).
-* **Backlog items:** see [docs/backlog.md](docs/backlog.md). Items without 🖥 need no NUC.
-* **Code:** see [docs/development.md](docs/development.md).
+  ([docs/hardware-inventory.md](docs/dev/hardware-inventory.md)).
+* **Backlog items:** see [docs/backlog.md](docs/dev/backlog.md). Items without 🖥 need no NUC.
+* **Code:** see [docs/development.md](docs/dev/development.md).
 
 ## Pull requests
 

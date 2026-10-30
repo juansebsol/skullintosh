@@ -2,7 +2,7 @@
 #
 # These come from Intel's product specification, the archived upstream config, and the PCI ID
 # database. They are EXPECTATIONS, not observations: `skullintosh report --input` compares a
-# sanitized inventory against them, and docs/hardware-inventory.md records what the project's
+# sanitized inventory against them, and docs/dev/hardware-inventory.md records what the project's
 # own machine actually reports.
 #
 # `pci` / `usb` / `hda` entries are matched case-insensitively against the inventory text.

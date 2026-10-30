@@ -3,11 +3,22 @@
 This page is written for a machine that dual-boots Windows and Linux from internal SSDs.
 Skullintosh development must leave both **independently bootable** at all times.
 
-> [!NOTE]
-> The project's reference NUC no longer matches this picture: since 2026-10-29 its only disk
-> holds macOS, by its owner's decision, with OpenCore on that disk's ESP (the one documented
-> exception in [installation.md](installation.md#if-macos-is-the-only-os-on-the-machines-only-disk)).
-> Everything below still applies to any machine that keeps other operating systems.
+The simplest way to protect other operating systems is to take their disks out while you
+install macOS ([installation.md](installation.md)). This page is for keeping them installed.
+The project's reference NUC no longer dual-boots: its only disk holds macOS.
+
+## Back up first
+
+Before changing BIOS settings or booting anything:
+
+* From Linux: `sudo scripts/backup/linux-backup-boot.sh /path/on/usb/efi-backup-linux`
+* From Windows (elevated): `scripts\backup\windows-backup-boot.ps1 -OutputDir E:\efi-backup-win`
+* Photograph every BIOS screen you'll change ([bios-settings.md](bios-settings.md)).
+* If Windows uses **BitLocker**, have the recovery key. Changing Secure Boot can trigger a
+  recovery-key prompt.
+
+Both scripts only read. They save the firmware boot entries, the EFI partitions' contents and
+the partition tables to external media for [recovery.md](recovery.md).
 
 ## Principles
 
@@ -18,7 +29,7 @@ Skullintosh development must leave both **independently bootable** at all times.
 3. **Windows and Linux are booted by the firmware, never through OpenCore.** OpenCore applies
    ACPI tables, device properties and SMBIOS to whatever it boots. Upstream saw Windows crash
    when booted through OpenCore with an `_OSI` patch
-   ([audit](upstream-audit.md#2-acpi)).
+   ([audit](dev/upstream-audit.md#2-acpi)).
 4. **Nothing is automatic.** No Skullintosh command writes to an ESP, edits partitions, or
    changes UEFI boot entries. The scripts under `scripts/` only read.
 5. **Back up first, verify after.** Every test session ends by booting Windows and Linux.
@@ -38,14 +49,14 @@ Skullintosh development must leave both **independently bootable** at all times.
 
 ## Before each test session
 
-- [ ] Backups from [installation.md](installation.md#1-back-up-the-current-boot-environment)
+- [ ] Backups from [Back up first](#back-up-first)
       exist on media that is **not** inside the NUC.
 - [ ] The F10 menu lists Windows Boot Manager and the Linux entry. Note their names.
-- [ ] Only stick A (and external disk B) carry OpenCore.
+- [ ] Only the USB stick (and the separate macOS disk, if any) carry OpenCore.
 
 ## After each test session
 
-- [ ] Remove stick A. Power on with no F10: the normal default OS boots.
+- [ ] Remove the stick. Power on with no F10: the normal default OS boots.
 - [ ] Boot the other OS via F10. Both reach the desktop/login.
 - [ ] Linux: `sudo efibootmgr -v` matches the backup (`diff` it against `efibootmgr-v.txt`).
 - [ ] Windows (elevated): `bcdedit /enum firmware` matches the backup.

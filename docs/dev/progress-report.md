@@ -3,7 +3,7 @@
 **Summary:** the research, tooling, validation and documentation that need no hardware are in
 place. A first, informal hardware session on 2026-10-28/29 installed and booted Monterey 12.7.6
 on the reference NUC from the debug flavour (details below). No formal test report exists yet,
-so every hardware cell in [compatibility.md](compatibility.md) is still an expectation or an
+so every hardware cell in [compatibility.md](../compatibility.md) is still an expectation or an
 informal observation, not a verified result.
 
 ## First hardware session (2026-10-28/29)
@@ -36,13 +36,13 @@ T-BOOT-3/4) before "Boots" can become ✅.
 | Phase | Status | Main outputs |
 | --- | --- | --- |
 | 0 Upstream audit | ✅ done (no hardware needed) | [upstream-audit.md](upstream-audit.md): every ACPI table, quirk, device property, kext and script, with a decision and source |
-| 1 Hardware inventory | 🟡 tooling done; **data pending** | `scripts/inventory/*`, `skullintosh report --input`, [hardware-inventory.md](hardware-inventory.md), [hardware/reference/nuc6i7kyk.toml](../hardware/reference/nuc6i7kyk.toml) |
-| 2 Monterey baseline | 🟡 installs and boots on the reference NUC (informal, 2026-10-29); **core tests and report pending** | [profiles/monterey](../profiles/monterey), release + debug flavours |
-| 3 Build toolkit | ✅ done | `src/skullintosh` (stdlib only), [manifests/dependencies.toml](../manifests/dependencies.toml) |
-| 4 USB map | 🟡 generator done; map **provisional** | [usb-mapping.md](usb-mapping.md), [hardware/usb/nuc6i7kyb.toml](../hardware/usb/nuc6i7kyb.toml) |
-| 5 Hardware fixes | ⏳ planned per subsystem | [backlog.md](backlog.md), [graphics.md](graphics.md), [hardware-testing.md](hardware-testing.md) |
-| 6 Newer macOS | 🟡 research profiles + documented changes | `profiles/{ventura,sonoma,sequoia,tahoe}`, [compatibility.md](compatibility.md) |
-| 7 Protect Windows/Linux | ✅ policy, config enforcement, backup scripts; **verification pending** | [windows-linux.md](windows-linux.md), [recovery.md](recovery.md), `scripts/backup/*` |
+| 1 Hardware inventory | 🟡 tooling done; **data pending** | `scripts/inventory/*`, `skullintosh report --input`, [hardware-inventory.md](hardware-inventory.md), [hardware/reference/nuc6i7kyk.toml](../../hardware/reference/nuc6i7kyk.toml) |
+| 2 Monterey baseline | 🟡 installs and boots on the reference NUC (informal, 2026-10-29); **core tests and report pending** | [profiles/monterey](../../profiles/monterey), release + debug flavours |
+| 3 Build toolkit | ✅ done | `src/skullintosh` (stdlib only), [manifests/dependencies.toml](../../manifests/dependencies.toml) |
+| 4 USB map | 🟡 generator done; map **provisional** | [usb-mapping.md](usb-mapping.md), [hardware/usb/nuc6i7kyb.toml](../../hardware/usb/nuc6i7kyb.toml) |
+| 5 Hardware fixes | ⏳ planned per subsystem | [backlog.md](backlog.md), [graphics.md](graphics.md), [hardware-testing.md](../hardware-testing.md) |
+| 6 Newer macOS | 🟡 research profiles + documented changes | `profiles/{ventura,sonoma,sequoia,tahoe}`, [compatibility.md](../compatibility.md) |
+| 7 Protect Windows/Linux | ✅ policy, config enforcement, backup scripts; **verification pending** | [windows-linux.md](../windows-linux.md), [recovery.md](../recovery.md), `scripts/backup/*` |
 | 8 CI | 🟡 workflows written; **not yet run on GitHub** | `.github/workflows/ci.yml`, `links.yml` |
 | 9 Documentation | ✅ full set | README, docs/*, SECURITY, CONTRIBUTING, CHANGELOG, issue templates |
 | 10 Release | ⏳ v0.1.0 ready to tag after first green CI | — |

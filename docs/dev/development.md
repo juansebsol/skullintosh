@@ -78,7 +78,7 @@ build/  dist/  .cache/  local/   generated or private; all git-ignored
   reviewed change.
 * **USB map:** see [usb-mapping.md](usb-mapping.md).
 * **Profile status:** only move to `verified` with a linked hardware report
-  ([hardware-testing.md](hardware-testing.md)). `tests/test_profiles.py` fails if any profile is
+  ([hardware-testing.md](../hardware-testing.md)). `tests/test_profiles.py` fails if any profile is
   `verified`, so that test must be updated in the same PR with the evidence link.
 
 ## Safety rules for code

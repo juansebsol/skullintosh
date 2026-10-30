@@ -32,7 +32,7 @@ update the manifest.
 
 ## Known trade-offs (documented, not silent)
 
-* **UEFI Secure Boot must be disabled** in the BIOS to boot OpenCore ([B-061](docs/backlog.md#b-061)).
+* **UEFI Secure Boot must be disabled** in the BIOS to boot OpenCore ([B-061](docs/dev/backlog.md#b-061)).
   This lowers protection against boot-level malware for every OS on the machine. Re-enable it
   when you stop testing ([bios-settings.md](docs/bios-settings.md#rolling-back)).
 * `Vault` is `Optional`: the EFI on the USB stick isn't cryptographically sealed. Keep the stick

@@ -27,7 +27,7 @@ no cell is ✅._
 | HDMI/DP audio | ❓ | ❓ | ❓ | ❓ | 🟡 unaffected per Dortania |
 | TOSLINK optical | ❓ (B-051) | ❓ | ❓ | ❓ | ⛔ |
 | Ethernet I219-LM | 🟡 IntelMausi | 🟡 | 🟡 | 🟡 | ❓ |
-| Wi-Fi AC 8260 | 🟡 AirportItlwm (Monterey build) | 🟡 AirportItlwm (Ventura build) | 🟡 AirportItlwm (14.0 / 14.4 builds) | 🟡 itlwm + HeliPort only | ❓ itlwm untested on 26 |
+| Wi-Fi AC 8260 | 🟡 AirportItlwm (Monterey build): joined a network and stayed connected on 2026-10-29 (informal); throughput and sleep untested | 🟡 AirportItlwm (Ventura build) | 🟡 AirportItlwm (14.0 / 14.4 builds) | 🟡 itlwm + HeliPort only | ❓ itlwm untested on 26 |
 | Bluetooth | 🟡 IntelBluetoothFirmware + BlueToolFixup; the verbose installer boot showed the firmware upload (`ibt-11-5.ddc`, "Firmware download done"); pairing untested | 🟡 | 🟡 | 🟡 | 🟡 needs `-ibtcompatbeta` |
 | USB map | ❓ provisional (B-010) | ❓ | ❓ | ❓ | ❓ |
 | Sleep / wake | ⛔ upstream: black screen on wake (B-030) | ❓ | ❓ | ❓ | ❓ |
@@ -62,7 +62,7 @@ and VoodooHDA on Tahoe) need SIP partly disabled, AMFI changes on some versions,
 system-volume seal. Effects: no delta OS updates, a weaker defence against persistent malware,
 and re-patching after every update. If the project ever supports such a configuration, it will
 be a separate, clearly named profile with a documented decision, never a silent default.
-Tracked in [B-043](backlog.md#b-043).
+Tracked in [B-043](dev/backlog.md#b-043).
 
 ## Reporting results
 

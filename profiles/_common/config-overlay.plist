@@ -6,7 +6,7 @@
   Applied on top of the pinned OpenCore release's own Docs/Sample.plist. Only keys listed here
   differ from OpenCore's defaults. Every key must exist in that OpenCore version's schema or
   the build fails. Keys beginning with "#" document intent and are stripped from the output.
-  Rationale for each decision: docs/upstream-audit.md.
+  Rationale for each decision: docs/dev/upstream-audit.md.
 -->
 <plist version="1.0">
 <dict>

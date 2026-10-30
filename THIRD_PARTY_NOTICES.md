@@ -4,7 +4,7 @@ Skullintosh's own code and documentation are MIT-licensed ([LICENSE](LICENSE)). 
 contains **no third-party binaries**. Built EFI folders and release packages contain unmodified
 binaries downloaded from the official GitHub releases below, pinned by SHA-256 in
 [`manifests/dependencies.toml`](manifests/dependencies.toml). Each package's license text, taken
-from the pinned tag, is in [`licenses/`](licenses/) and is copied into every release package.
+from the pinned tag, is in [`licenses/`](licenses) and is copied into every release package.
 
 | Component | Upstream | Pinned tag | License | License text |
 | --- | --- | --- | --- | --- |

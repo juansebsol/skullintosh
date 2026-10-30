@@ -2,15 +2,15 @@
 
 Work from the least invasive step to the most invasive, and stop as soon as things work. Each
 step assumes you made the backups in
-[installation.md](installation.md#1-back-up-the-current-boot-environment).
+[windows-linux.md](windows-linux.md#back-up-first).
 
 ## Level 0: remove the USB stick
 
-OpenCore lives only on stick A (and possibly external disk B). Unplug both and power on.
+If OpenCore lives only on the USB stick (or a separate macOS disk), unplug it and power on.
 The firmware boots its own default entry exactly as before.
 
 This level doesn't exist on a macOS-only machine where OpenCore was copied to the internal ESP
-([installation.md](installation.md#if-macos-is-the-only-os-on-the-machines-only-disk)). There the
+([installation.md, step 7](installation.md#7-boot-without-the-stick)). There the
 stick *is* the recovery path: boot it from F10 and choose the macOS volume, then fix the ESP.
 
 ## Level 1: use the firmware boot menu

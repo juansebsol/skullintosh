@@ -3,7 +3,7 @@
 This page has two parts: **how to collect** identifiers safely, and the **record** of what the
 project's reference machine actually reports. The record is empty until someone runs the
 scripts on real hardware. Expected values come from
-[hardware/reference/nuc6i7kyk.toml](../hardware/reference/nuc6i7kyk.toml).
+[hardware/reference/nuc6i7kyk.toml](../../hardware/reference/nuc6i7kyk.toml).
 
 ## Collecting (read-only)
 
@@ -70,12 +70,12 @@ are git-ignored (`inventory-raw*/`, `local/`).
 
 ## BIOS settings as found
 
-Record the values *before* any change in [bios-settings.md](bios-settings.md).
+Record the values *before* any change in [bios-settings.md](../bios-settings.md).
 
 ## How to update this page
 
 1. Run the scripts and `skullintosh report`.
 2. Copy only the IDs and model names (never serials) into the tables above.
 3. If an ID differs from the expected one, update
-   [hardware/reference/nuc6i7kyk.toml](../hardware/reference/nuc6i7kyk.toml) in the same pull
+   [hardware/reference/nuc6i7kyk.toml](../../hardware/reference/nuc6i7kyk.toml) in the same pull
    request and say where the difference came from.

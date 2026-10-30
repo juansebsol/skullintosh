@@ -25,7 +25,7 @@ Removed from upstream: `enable-hdmi20` (WhateverGreen: not implemented on macOS 
 `enable-metal` (meant for offline/headless rendering), connector pipe/type patches (upstream
 already withdrew them), and `hda-gfx` (WhateverGreen sets it automatically).
 
-### A/B experiments (one change at a time; record per [hardware-testing.md](hardware-testing.md))
+### A/B experiments (one change at a time; record per [hardware-testing.md](../hardware-testing.md))
 
 | ID | Change against the candidate | Question it answers | Backlog |
 | --- | --- | --- | --- |
@@ -69,7 +69,7 @@ Both use `AAPL,GfxYTile = 01000000`, which WhateverGreen recommends for SKL→KB
 Sequoia and Tahoe: whether the KBL framebuffer driver is still present and usable is an open
 question ([B-042](backlog.md#b-042), [B-043](backlog.md#b-043)). The fallback is OpenCore Legacy
 Patcher root patches, which have security implications
-([compatibility.md](compatibility.md#security-reducing-patches)).
+([compatibility.md](../compatibility.md#security-reducing-patches)).
 
 ## Known historical problems (upstream, Catalina/Big Sur beta)
 

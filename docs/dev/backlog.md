@@ -57,7 +57,7 @@ SD reader, Super I/O) are recorded.
 ### B-002
 **Record BIOS version and original settings; back up boot environment** · P0 · 🖥 · Phase 7
 
-Photograph or record every BIOS screen listed in [bios-settings.md](bios-settings.md). Run both
+Photograph or record every BIOS screen listed in [bios-settings.md](../bios-settings.md). Run both
 backup scripts to external media.
 **Done when:** the backups exist off-machine with SHA256SUMS, and the BIOS version is in
 hardware-inventory.md.
@@ -73,7 +73,7 @@ exists and needs disabling for macOS, and the CPU object names.
 ### B-007
 **First Monterey boot and install** · P0 · 🖥 · Phase 2
 
-Follow [installation.md](installation.md) with the debug flavour. Record T-BOOT-1…4 and attach
+Follow [installation.md](../installation.md) with the debug flavour. Record T-BOOT-1…4 and attach
 the OpenCore log (reviewed).
 **Status 2026-10-29:** Monterey 12.7.6 installed and booted to the desktop on the reference NUC
 (debug flavour, internal NVMe, see [progress-report.md](progress-report.md)). Still open: the
@@ -84,7 +84,7 @@ with logs.
 ### B-008
 **Verify Windows and Linux are unaffected** · P0 · 🖥 · Phase 7
 
-Run the "after each test session" checklist in [windows-linux.md](windows-linux.md).
+Run the "after each test session" checklist in [windows-linux.md](../windows-linux.md).
 **Status 2026-10-29:** parked. The reference machine's only disk is macOS-only by the owner's
 decision, so there is no Windows or Linux left to check there. Applies again on any machine
 that keeps other OSes.
